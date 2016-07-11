@@ -16,6 +16,7 @@
 		CCEF56F91D343E6A00EBD2CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCEF56F71D343E6A00EBD2CD /* LaunchScreen.storyboard */; };
 		CCEF57041D343E6A00EBD2CD /* Train_WakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEF57031D343E6A00EBD2CD /* Train_WakerTests.swift */; };
 		CCEF570F1D343E6A00EBD2CD /* Train_WakerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEF570E1D343E6A00EBD2CD /* Train_WakerUITests.swift */; };
+		CCEF571D1D344BEC00EBD2CD /* TrainLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEF571C1D344BEB00EBD2CD /* TrainLight.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		CCEF570A1D343E6A00EBD2CD /* Train WakerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Train WakerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCEF570E1D343E6A00EBD2CD /* Train_WakerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Train_WakerUITests.swift; sourceTree = "<group>"; };
 		CCEF57101D343E6A00EBD2CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CCEF571C1D344BEB00EBD2CD /* TrainLight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainLight.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 				CCEF56EA1D343E6A00EBD2CD /* AppDelegate.swift */,
 				CCEF56EC1D343E6A00EBD2CD /* GameScene.sks */,
 				CCEF56EE1D343E6A00EBD2CD /* GameScene.swift */,
+				CCEF571C1D344BEB00EBD2CD /* TrainLight.swift */,
 				CCEF56F01D343E6A00EBD2CD /* GameViewController.swift */,
 				CCEF56F21D343E6A00EBD2CD /* Main.storyboard */,
 				CCEF56F51D343E6A00EBD2CD /* Assets.xcassets */,
@@ -264,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCEF56EF1D343E6A00EBD2CD /* GameScene.swift in Sources */,
+				CCEF571D1D344BEC00EBD2CD /* TrainLight.swift in Sources */,
 				CCEF56F11D343E6A00EBD2CD /* GameViewController.swift in Sources */,
 				CCEF56EB1D343E6A00EBD2CD /* AppDelegate.swift in Sources */,
 			);
