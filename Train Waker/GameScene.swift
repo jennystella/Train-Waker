@@ -21,6 +21,8 @@ class GameScene: SKScene {
     var timerBar: SKSpriteNode!
     var timer: CGFloat = 1.0{
         didSet{
+            /* Cap timer */
+            if timer > 1.0 { timer = 1.0 }
             timerBar.xScale = timer
         }
     }
@@ -55,7 +57,7 @@ class GameScene: SKScene {
             
         }
 
-        }
+    }
     
    
     override func update(currentTime: CFTimeInterval) {
@@ -69,47 +71,38 @@ class GameScene: SKScene {
         timer -= 0.01
         
         print(timer)
-        /* If the timer is less than 0, the train light color will change from default to green */
         
         
-        
-        //NOTE: This does not work, check why it does not enter the loop
-        while keepTimerOnTrack == 1 && timer < 0  && timer > -0.01{
+        //This if statement will make the train light change colors and reset the timer when the var "keepTimerOnTrack" is 1 and the timer is between 0 to -0.01
+        if keepTimerOnTrack == 1 && timer < 0  && timer > -0.01{
             
-            //I commented that out since just that if statement could be problematic if a machine runs the loop faster than expected
-            //if timer < 0 && timer > -0.01{
-        let action = SKAction.colorizeWithColor(UIColor.greenColor(), colorBlendFactor: 0, duration: 1)
-            let action1 = SKAction.colorizeWithColor(UIColor.yellowColor(), colorBlendFactor: 1, duration: 1)
+            timerBar.hidden = true
+            
+            let action = SKAction.colorizeWithColor(UIColor.greenColor(), colorBlendFactor: 0, duration: 1)
+            let action1 = SKAction.colorizeWithColor(UIColor.yellowColor(), colorBlendFactor: 0, duration: 1)
             let action2 = SKAction.colorizeWithColor(UIColor.grayColor(), colorBlendFactor: 0, duration: 1)
             let waitAction = SKAction.waitForDuration(1)
 
-            let recolor = SKAction.sequence([action, waitAction, action1, waitAction, action2])
-            self.trainLight.runAction(recolor)
-            print("hi")
-         
+            let recolor = SKAction.sequence([action, waitAction, action1, waitAction, action2, waitAction])
+            self.trainLight.runAction(recolor, completion: { 
+                self.keepTimerOnTrack -= 1
+                self.timer = 1.0
+                self.timerBar.hidden = false
+            })
+            
+            
+            
             keepTimerOnTrack += 1
-           // }
         }
-        
-        
-        
-        }
-        
 
-//    
-//        if timer < -0.5 && timer > -0.51 {
-//            let action = SKAction.colorizeWithColor(UIColor.grayColor(), colorBlendFactor: 0, duration: 1)
-//            let recolor = SKAction.sequence([action])
-//            self.trainLight.runAction(recolor)
-//            print("Gotchya")
-//            
-//        }
-        
-        
-        
         
         
     }
+    
+    
+        
+        
+}
     
     
 
