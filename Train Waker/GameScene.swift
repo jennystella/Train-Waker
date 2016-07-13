@@ -8,82 +8,106 @@
 
 import SpriteKit
 
-var gameTimer: NSTimer!
+enum gameState {
+    case Title, Ready, Playing, GameOver
+}
 
 class GameScene: SKScene {
+    
     var trainLight: SKSpriteNode!
     let fixedDelta: CFTimeInterval = 1.0/60.0 /* 60 FPS */
-    var timeChange: CFTimeInterval = 0
-
     
- //   var timestamp: NSTimeInterval { get }
+    //This is for the timer countdown of the train light
+    var timerBar: SKSpriteNode!
+    var timer: CGFloat = 1.0{
+        didSet{
+            timerBar.xScale = timer
+        }
+    }
+    var state: gameState = .Title
+
+
+
 
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         trainLight = childNodeWithName("trainLight") as! SKSpriteNode
+        timerBar = childNodeWithName("timerBar") as! SKSpriteNode
         
-        let action2 = SKAction.colorizeWithColor(UIColor.grayColor(), colorBlendFactor: 1, duration: 0.5)
-        let recolor = SKAction.sequence([action2])
-        self.trainLight.runAction(recolor)
+        self.state = .Ready
     
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
        /* Called when a touch begins */
         
+        /*Game will not continue if it is game over
+        
+        NOTE: Consider getting rid of the .Title state, unless start menu is created in which case, make sure the start menu is in the state of .Title  */
+        if state == .GameOver || state == .Title { return }
+        
+        
+        //Basically, if the game is ready to start, it will continue and become playable
+        if state == .Ready {
+            state = .Playing
+            
+        }
 
         }
     
      func viewDidLoad() {
-//        var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: #selector(MyClass.update), userInfo: nil, repeats: true)
-//        //Swift <2.2 selector syntax
-//        var timer = NSTimer.scheduledTimerWithTimeInterval(0.4, target: self, selector: "update", userInfo: nil, repeats: true)
-
-        
+    
     }
    
     override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
-
-        if (timeChange >= 2){
-//        gameTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(changeColor), userInfo: nil, repeats: true)
-            changeColor()
-            let action2 = SKAction.colorizeWithColor(UIColor.grayColor(), colorBlendFactor: 1, duration: 0.5)
-            let recolor = SKAction.sequence([action2])
+        /* Called before each frame is rendered*/
+         
+         
+        /* Basically if it's game over or the start menu, then the timer countdown will not start to decrease*/
+        if state != .Playing { return }
+        
+        /* Decreases the timer each time the program goes through the update function */
+        timer -= 0.01
+        
+        print(timer)
+        /* If the timer is less than 0, the train light color will change from default to green */
+        if timer < 0 && timer > -0.1 {
+            let action = SKAction.colorizeWithColor(UIColor.greenColor(), colorBlendFactor: 0, duration: 2)
+          //  let action1 = SKAction.colorizeWithColor(UIColor.yellowColor(), colorBlendFactor: 1, duration: 2)
+            let recolor = SKAction.sequence([action])
             self.trainLight.runAction(recolor)
-            timeChange = 0
-            print("New timeChange")
+            
+            
+            
+        }
 
-    }
-
+    
+        if timer < -0.5 && timer > -0.51 {
+            let action = SKAction.colorizeWithColor(UIColor.grayColor(), colorBlendFactor: 0, duration: 2)
+            let recolor = SKAction.sequence([action])
+            self.trainLight.runAction(recolor)
+            
+        }
         
-        timeChange += fixedDelta
-        print (timeChange)
-        print (fixedDelta)
-    }
-    func changeColor(){
-                let action = SKAction.colorizeWithColor(UIColor.greenColor(), colorBlendFactor: 1, duration: 2)
-                let action1 = SKAction.colorizeWithColor(UIColor.yellowColor(), colorBlendFactor: 1, duration: 2)
-                let recolor = SKAction.sequence([action, action1])
-                self.trainLight.runAction(recolor)
         
-
-            }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        
+        
+        
     }
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
 
