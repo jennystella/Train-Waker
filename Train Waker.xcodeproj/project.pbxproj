@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CCE260941D370BE8004DE1B7 /* WaitLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE260931D370BE8004DE1B7 /* WaitLight.swift */; };
 		CCEF56EB1D343E6A00EBD2CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEF56EA1D343E6A00EBD2CD /* AppDelegate.swift */; };
 		CCEF56ED1D343E6A00EBD2CD /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CCEF56EC1D343E6A00EBD2CD /* GameScene.sks */; };
 		CCEF56EF1D343E6A00EBD2CD /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEF56EE1D343E6A00EBD2CD /* GameScene.swift */; };
@@ -16,7 +17,6 @@
 		CCEF56F91D343E6A00EBD2CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCEF56F71D343E6A00EBD2CD /* LaunchScreen.storyboard */; };
 		CCEF57041D343E6A00EBD2CD /* Train_WakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEF57031D343E6A00EBD2CD /* Train_WakerTests.swift */; };
 		CCEF570F1D343E6A00EBD2CD /* Train_WakerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEF570E1D343E6A00EBD2CD /* Train_WakerUITests.swift */; };
-		CCEF571D1D344BEC00EBD2CD /* TrainLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEF571C1D344BEB00EBD2CD /* TrainLight.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CCE260931D370BE8004DE1B7 /* WaitLight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WaitLight.swift; path = ../WaitLight.swift; sourceTree = "<group>"; };
 		CCEF56E71D343E6A00EBD2CD /* Train Waker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Train Waker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCEF56EA1D343E6A00EBD2CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCEF56EC1D343E6A00EBD2CD /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -52,7 +53,6 @@
 		CCEF570A1D343E6A00EBD2CD /* Train WakerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Train WakerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCEF570E1D343E6A00EBD2CD /* Train_WakerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Train_WakerUITests.swift; sourceTree = "<group>"; };
 		CCEF57101D343E6A00EBD2CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CCEF571C1D344BEB00EBD2CD /* TrainLight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainLight.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +106,7 @@
 				CCEF56EA1D343E6A00EBD2CD /* AppDelegate.swift */,
 				CCEF56EC1D343E6A00EBD2CD /* GameScene.sks */,
 				CCEF56EE1D343E6A00EBD2CD /* GameScene.swift */,
-				CCEF571C1D344BEB00EBD2CD /* TrainLight.swift */,
+				CCE260931D370BE8004DE1B7 /* WaitLight.swift */,
 				CCEF56F01D343E6A00EBD2CD /* GameViewController.swift */,
 				CCEF56F21D343E6A00EBD2CD /* Main.storyboard */,
 				CCEF56F51D343E6A00EBD2CD /* Assets.xcassets */,
@@ -267,9 +267,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCEF56EF1D343E6A00EBD2CD /* GameScene.swift in Sources */,
-				CCEF571D1D344BEC00EBD2CD /* TrainLight.swift in Sources */,
 				CCEF56F11D343E6A00EBD2CD /* GameViewController.swift in Sources */,
 				CCEF56EB1D343E6A00EBD2CD /* AppDelegate.swift in Sources */,
+				CCE260941D370BE8004DE1B7 /* WaitLight.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -498,6 +498,7 @@
 				CCEF57151D343E6A00EBD2CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CCEF57161D343E6A00EBD2CD /* Build configuration list for PBXNativeTarget "Train WakerTests" */ = {
 			isa = XCConfigurationList;
@@ -506,6 +507,7 @@
 				CCEF57181D343E6A00EBD2CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CCEF57191D343E6A00EBD2CD /* Build configuration list for PBXNativeTarget "Train WakerUITests" */ = {
 			isa = XCConfigurationList;
@@ -514,6 +516,7 @@
 				CCEF571B1D343E6A00EBD2CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
