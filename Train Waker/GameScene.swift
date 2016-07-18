@@ -21,6 +21,7 @@ class GameScene: SKScene {
     var waitLight3: SKSpriteNode!
     var waitLight4: SKSpriteNode!
     
+    
     //This is for the timer countdown of the train light
     var timerBar: SKSpriteNode!
     var timer: CGFloat = 1.0{
@@ -30,12 +31,29 @@ class GameScene: SKScene {
             timerBar.xScale = timer
         }
     }
+
     
+    //Objects Passenger
+    //This calls the passenger class and assigns a passgener object
+    var Passenger1: Passenger!
+    var Passenger2: Passenger!
+    var Passenger3: Passenger!
+    var Passenger4: Passenger!
+    
+    var sleepSign: SKSpriteNode!
+    var sleepSign2: SKSpriteNode!
+    var sleepSign3: SKSpriteNode!
+    var sleepSign4: SKSpriteNode!
+
+    var awakeSign:  SKSpriteNode!
+    var awakeSign2: SKSpriteNode!
+    var awakeSign3: SKSpriteNode!
+    var awakeSign4: SKSpriteNode!
+
     
     var state: gameState = .Title
     
     var keepTimerOnTrack: Int = 1
-    
     
     
     
@@ -59,7 +77,12 @@ class GameScene: SKScene {
         timerBar = childNodeWithName("timerBar") as! SKSpriteNode
         
 
-
+        //Instead of code connections similar to ones above, the signs are connected while Passenger1 (2,3...etc.) is being initialized for the Passenger class
+        Passenger1 = Passenger(sleepSign: childNodeWithName("sleepSign") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign") as! SKSpriteNode, sprite: childNodeWithName("Pass1") as! SKSpriteNode)
+        Passenger2 = Passenger(sleepSign: childNodeWithName("sleepSign2") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign2") as! SKSpriteNode, sprite: childNodeWithName("Pass2") as! SKSpriteNode)
+        Passenger3 = Passenger(sleepSign: childNodeWithName("sleepSign3") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign3") as! SKSpriteNode, sprite: childNodeWithName("Pass3") as! SKSpriteNode)
+        Passenger4 = Passenger(sleepSign: childNodeWithName("sleepSign4") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign4") as! SKSpriteNode, sprite: childNodeWithName("Pass4") as! SKSpriteNode)
+        
         self.state = .Ready
         
     }
@@ -105,6 +128,12 @@ class GameScene: SKScene {
             
             timerBar.hidden = true
             
+            Passenger1.randomawake()
+            Passenger2.randomawake()
+            Passenger3.randomawake()
+            Passenger4.randomawake()
+            
+            
             let action = SKAction.colorizeWithColor(UIColor.greenColor(), colorBlendFactor: 0, duration: 1)
             let action1 = SKAction.colorizeWithColor(UIColor.yellowColor(), colorBlendFactor: 0, duration: 1)
             let action2 = SKAction.colorizeWithColor(UIColor.grayColor(), colorBlendFactor: 0, duration: 1)
@@ -120,7 +149,13 @@ class GameScene: SKScene {
                 self.waitLight2.hidden = true
                 self.waitLight3.hidden = true
                 self.waitLight4.hidden = true
+                
+                self.Passenger1.sleeping()
+                self.Passenger2.sleeping()
+                self.Passenger3.sleeping()
+                self.Passenger4.sleeping()
 
+                
             })
             
             
@@ -131,6 +166,7 @@ class GameScene: SKScene {
         
         
     }
+    
     
     
     
