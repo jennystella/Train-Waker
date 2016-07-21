@@ -78,7 +78,6 @@ class GameScene: SKScene {
         /* Setup your scene here */
         trainLight = childNodeWithName("trainLight") as! SKSpriteNode
         
-        
         waitLight = childNodeWithName("waitLight") as! SKSpriteNode
         waitLight2 = childNodeWithName("waitLight2") as! SKSpriteNode
         waitLight3 = childNodeWithName("waitLight3") as! SKSpriteNode
@@ -100,7 +99,6 @@ class GameScene: SKScene {
         Passenger3 = Passenger(sleepSign: childNodeWithName("sleepSign3") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign3") as! SKSpriteNode, thoughtCloud: childNodeWithName("thoughtCloud3") as! SKSpriteNode, sprite: childNodeWithName("Pass3") as! SKSpriteNode)
         Passenger4 = Passenger(sleepSign: childNodeWithName("sleepSign4") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign4") as! SKSpriteNode, thoughtCloud: childNodeWithName("thoughtCloud4") as! SKSpriteNode, sprite: childNodeWithName("Pass4") as! SKSpriteNode)
         
-        touchArea1 = childNodeWithName("touchArea1") as! SKSpriteNode
         
         self.state = .Ready
         
@@ -130,50 +128,56 @@ class GameScene: SKScene {
                 let nodeTouched = nodeAtPoint(point)
                 print(nodeTouched)
                 
-                //Note: Add in if the node you want within a condition
+                
+                //Passenger 1 is touched
                 if Passenger1.awakeSign.hidden == false{
                     if nodeTouched.name == "touchArea1"{
                         score += 1
                         Passenger1.awaken()
                     }
+                }else if Passenger1.awakeSign.hidden == true{
+                    if nodeTouched.name == "touchArea1"{
+                   // gameOver()
+                }
                 }
                 
-//                else{
-//                    gameOver()
-//                }
                 
+                // Passenger 2 is touched
                 if Passenger2.awakeSign.hidden == false{
                     if nodeTouched.name == "touchArea2"{
                         score += 1
                         Passenger2.awaken()
                     }
-                    
+                }else if Passenger2.awakeSign.hidden == true{
+                    if nodeTouched.name == "touchArea2"{
+                        //gameOver()
+                    }
                 }
-//                else{
-//                    gameOver()
-//                }
                 
+                //Passenger 3 is touched
                 if Passenger3.awakeSign.hidden == false{
                     if nodeTouched.name == "touchArea3"{
                         score += 1
                         Passenger3.awaken()
                     }
-                    
+                }else if Passenger3.awakeSign.hidden == true{
+                    if nodeTouched.name == "touchArea3"{
+                        //gameOver()
+                    }
                 }
-//                else{
-//                    gameOver()
-//                }
                 
+                //Passenger 4 is touched
                 if Passenger4.awakeSign.hidden == false{
                     if nodeTouched.name == "touchArea4"{
                         score += 1
                         Passenger4.awaken()
                     }
-                    
                }
-//                    else{
-//                    gameOver()
-//                }
+                else if Passenger4.awakeSign.hidden == true{
+                    if nodeTouched.name == "touchArea4"{
+                        //gameOver()
+                    }
+                }
                 
             }
         }
