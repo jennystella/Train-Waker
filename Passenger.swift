@@ -13,11 +13,13 @@ class Passenger {
     
     var sleepSign: SKSpriteNode
     var awakeSign: SKSpriteNode
+    var thoughtCloud: SKSpriteNode
     var sprite: SKSpriteNode
     
-    init(sleepSign: SKSpriteNode, awakeSign: SKSpriteNode, sprite: SKSpriteNode){
+    init(sleepSign: SKSpriteNode, awakeSign: SKSpriteNode, thoughtCloud: SKSpriteNode, sprite: SKSpriteNode){
         self.sleepSign = sleepSign
         self.awakeSign = awakeSign
+        self.thoughtCloud = thoughtCloud
         self.sprite = sprite
         sleeping()
     }
@@ -25,10 +27,19 @@ class Passenger {
     func sleeping(){
         sleepSign.hidden = false
         awakeSign.hidden = true
+        thoughtCloud.hidden = false
     }
     func awake(){
         sleepSign.hidden = true
         awakeSign.hidden = false
+        thoughtCloud.hidden = false
+    }
+    
+    func awaken(){
+        sleepSign.hidden = true
+        awakeSign.hidden = true
+        thoughtCloud.hidden = true
+        
     }
     
     func randomawake(){
@@ -41,6 +52,7 @@ class Passenger {
         default:
             break
         }
+        
     }
 }
 

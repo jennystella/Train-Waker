@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		CCDB0D431D3D49C900BA7F6F /* Passenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB0D421D3D49C900BA7F6F /* Passenger.swift */; };
-		CCDB0D451D3D566500BA7F6F /* SignChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB0D441D3D566500BA7F6F /* SignChange.swift */; };
 		CCE260941D370BE8004DE1B7 /* WaitLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE260931D370BE8004DE1B7 /* WaitLight.swift */; };
 		CCEF56EB1D343E6A00EBD2CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEF56EA1D343E6A00EBD2CD /* AppDelegate.swift */; };
 		CCEF56ED1D343E6A00EBD2CD /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CCEF56EC1D343E6A00EBD2CD /* GameScene.sks */; };
@@ -40,7 +39,6 @@
 
 /* Begin PBXFileReference section */
 		CCDB0D421D3D49C900BA7F6F /* Passenger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Passenger.swift; path = ../Passenger.swift; sourceTree = "<group>"; };
-		CCDB0D441D3D566500BA7F6F /* SignChange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignChange.swift; sourceTree = "<group>"; };
 		CCE260931D370BE8004DE1B7 /* WaitLight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WaitLight.swift; path = ../WaitLight.swift; sourceTree = "<group>"; };
 		CCEF56E71D343E6A00EBD2CD /* Train Waker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Train Waker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCEF56EA1D343E6A00EBD2CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -112,7 +110,6 @@
 				CCEF56EE1D343E6A00EBD2CD /* GameScene.swift */,
 				CCE260931D370BE8004DE1B7 /* WaitLight.swift */,
 				CCDB0D421D3D49C900BA7F6F /* Passenger.swift */,
-				CCDB0D441D3D566500BA7F6F /* SignChange.swift */,
 				CCEF56F01D343E6A00EBD2CD /* GameViewController.swift */,
 				CCEF56F21D343E6A00EBD2CD /* Main.storyboard */,
 				CCEF56F51D343E6A00EBD2CD /* Assets.xcassets */,
@@ -208,6 +205,7 @@
 				TargetAttributes = {
 					CCEF56E61D343E6A00EBD2CD = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 6EV3UD9SXH;
 					};
 					CCEF56FE1D343E6A00EBD2CD = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -276,7 +274,6 @@
 				CCEF56F11D343E6A00EBD2CD /* GameViewController.swift in Sources */,
 				CCDB0D431D3D49C900BA7F6F /* Passenger.swift in Sources */,
 				CCEF56EB1D343E6A00EBD2CD /* AppDelegate.swift in Sources */,
-				CCDB0D451D3D566500BA7F6F /* SignChange.swift in Sources */,
 				CCE260941D370BE8004DE1B7 /* WaitLight.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -421,10 +418,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Train Waker/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.makeschool.Train-Waker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -432,10 +433,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Train Waker/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.makeschool.Train-Waker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
