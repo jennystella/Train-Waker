@@ -36,6 +36,7 @@ class GameScene: SKScene {
     var score: Int = 0 {
         didSet {
             scoreLabel.text = String(score)
+            endScoreLabel.text = String(score)
         }
     }
     
@@ -71,6 +72,13 @@ class GameScene: SKScene {
     
     var touchArea1: SKSpriteNode!
     
+    var endGameBackground: SKSpriteNode!
+    var gameOverLabel: SKLabelNode!
+    var endScoreLabel: SKLabelNode!
+    
+    
+    var restartButton: MSButtonNode!
+    var startButton: MSButtonNode!
     
     
     override func didMoveToView(view: SKView) {
@@ -92,6 +100,7 @@ class GameScene: SKScene {
         
         timerBar = childNodeWithName("timerBar") as! SKSpriteNode
         scoreLabel = childNodeWithName("scoreLabel") as! SKLabelNode
+        startButton = childNodeWithName("startButton") as! MSButtonNode
         
         //Instead of code connections similar to ones above, the signs are connected while Passenger1 (2,3...etc.) is being initialized for the Passenger class
         Passenger1 = Passenger(sleepSign: childNodeWithName("sleepSign") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign") as! SKSpriteNode, thoughtCloud: childNodeWithName("thoughtCloud1") as! SKSpriteNode, sprite: childNodeWithName("Pass1") as! SKSpriteNode)
@@ -99,7 +108,37 @@ class GameScene: SKScene {
         Passenger3 = Passenger(sleepSign: childNodeWithName("sleepSign3") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign3") as! SKSpriteNode, thoughtCloud: childNodeWithName("thoughtCloud3") as! SKSpriteNode, sprite: childNodeWithName("Pass3") as! SKSpriteNode)
         Passenger4 = Passenger(sleepSign: childNodeWithName("sleepSign4") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign4") as! SKSpriteNode, thoughtCloud: childNodeWithName("thoughtCloud4") as! SKSpriteNode, sprite: childNodeWithName("Pass4") as! SKSpriteNode)
         
+        endGameBackground = childNodeWithName("endGameBackground") as! SKSpriteNode
+        endScoreLabel = childNodeWithName("//endScoreLabel") as! SKLabelNode
+        restartButton = childNodeWithName("//restartButton") as! MSButtonNode
+        restartButton.selectedHandler = {
+            
+            /* Grab reference to our SpriteKit view */
+            let skView = self.view as SKView!
+            
+            /* Load Game scene */
+            let scene = GameScene(fileNamed:"GameScene") as GameScene!
+            
+            //Resets the score for each round :^)
+            self.score = 0
+            
+            /* Ensure correct aspect mode */
+            scene.scaleMode = .AspectFill
+            
+            /* Restart game scene */
+            skView.presentScene(scene)
+            
+        }
+        /* Hide restart button */
+        restartButton.state = .Hidden
         
+        startButton.selectedHandler = {
+            self.state = .Playing
+            self.startButton.hidden = true
+            
+        }
+        
+
         self.state = .Ready
         
     }
@@ -110,18 +149,14 @@ class GameScene: SKScene {
         /*Game will not continue if it is game over
          
          NOTE: Consider getting rid of the .Title state, unless start menu is created in which case, make sure the start menu is in the state of .Title  */
-        if state == .GameOver || state == .Title { return }
+
         
+        if state == .GameOver || state == .Title  || state == .Ready { return }
         
-        //Basically, if the game is ready to start, it will continue and become playable
-        if state == .Ready {
-            state = .Playing
-        }
         
         //This will be for implementing scores
         if state != .GameOver {
             for touch in touches {
-                //let location  = touch.locationInNode(self)
                 let point = touch.locationInNode(self)
                 print(point)
                 
@@ -137,9 +172,9 @@ class GameScene: SKScene {
                     }
                 }else if Passenger1.awakeSign.hidden == true{
                     if nodeTouched.name == "touchArea1"{
-                   // gameOver()
+                    gameOver()
                 }
-                }
+            }
                 
                 
                 // Passenger 2 is touched
@@ -150,7 +185,7 @@ class GameScene: SKScene {
                     }
                 }else if Passenger2.awakeSign.hidden == true{
                     if nodeTouched.name == "touchArea2"{
-                        //gameOver()
+                        gameOver()
                     }
                 }
                 
@@ -162,7 +197,7 @@ class GameScene: SKScene {
                     }
                 }else if Passenger3.awakeSign.hidden == true{
                     if nodeTouched.name == "touchArea3"{
-                        //gameOver()
+                        gameOver()
                     }
                 }
                 
@@ -175,7 +210,7 @@ class GameScene: SKScene {
                }
                 else if Passenger4.awakeSign.hidden == true{
                     if nodeTouched.name == "touchArea4"{
-                        //gameOver()
+                        gameOver()
                     }
                 }
                 
@@ -212,13 +247,16 @@ class GameScene: SKScene {
             Passenger3.randomawake()
             Passenger4.randomawake()
             
+            if Passenger1.awakeSign.hidden == true && Passenger2.awakeSign.hidden == true && Passenger3.awakeSign.hidden == true && Passenger4.awakeSign.hidden == true{
+                 Passenger2.awake()
+            }
             
             
             //Action sequence is created in order to change the color of the light above the train doors
-            let action = SKAction.colorizeWithColor(UIColor.greenColor(), colorBlendFactor: 0, duration: 1)
-            let action1 = SKAction.colorizeWithColor(UIColor.yellowColor(), colorBlendFactor: 0, duration: 1)
-            let action2 = SKAction.colorizeWithColor(UIColor.grayColor(), colorBlendFactor: 0, duration: 1)
-            let waitAction = SKAction.waitForDuration(1)
+            let action = SKAction.colorizeWithColor(UIColor.greenColor(), colorBlendFactor: 0, duration: 0.1)
+            let action1 = SKAction.colorizeWithColor(UIColor.yellowColor(), colorBlendFactor: 0, duration: 0.1)
+            let action2 = SKAction.colorizeWithColor(UIColor.grayColor(), colorBlendFactor: 0, duration: 0.1)
+            let waitAction = SKAction.waitForDuration(0.5)
             
             let recolor = SKAction.sequence([action, waitAction, action1, waitAction, action2, waitAction])
             self.trainLight.runAction(recolor, completion: {
@@ -241,7 +279,6 @@ class GameScene: SKScene {
                 
             })
             
-            
             //Helps put "keepTimerOnTrack" back to 1 so that the program may enter the if loop and change colours again in the next round
             keepTimerOnTrack += 1
         }
@@ -250,13 +287,31 @@ class GameScene: SKScene {
         
     }
     
-//    func gameOver(){
-//        self.state = .GameOver
-//        
-//        
-//        
-//        
-//    }
+    func gameOver(){
+        self.state = .GameOver
+        
+        let moveDown = SKAction.moveByX(0, y:-320, duration:0.5)
+        let downSequence = SKAction.sequence([moveDown])
+        
+        self.endGameBackground.runAction(downSequence)
+        
+        let skView = self.view as SKView!
+
+        restartButton.state = .Active
+        
+        if restartButton.state == .Hidden{
+           
+            /* Restart GameScene */
+            skView.presentScene(scene)
+            
+            /* Start game */
+            state = .Ready
+            startButton.hidden = false
+        }
+        
+        
+        
+        }
     
     
     

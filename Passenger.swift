@@ -23,11 +23,13 @@ class Passenger {
         self.sprite = sprite
         sleeping()
     }
+
     
     func sleeping(){
         sleepSign.hidden = false
         awakeSign.hidden = true
         thoughtCloud.hidden = false
+        
     }
     func awake(){
         sleepSign.hidden = true
