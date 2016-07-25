@@ -26,6 +26,7 @@ class Passenger {
 
     
     func sleeping(){
+        if awakeSign.hidden == false && state == .Playing { return}
         sleepSign.hidden = false
         awakeSign.hidden = true
         thoughtCloud.hidden = false

@@ -11,6 +11,8 @@ import SpriteKit
 enum gameState {
     case Title, Ready, Playing, GameOver
 }
+var state: gameState = .Title
+
 
 class GameScene: SKScene {
     
@@ -62,9 +64,6 @@ class GameScene: SKScene {
     var thoughtCloud2: SKSpriteNode!
     var thoughtCloud3: SKSpriteNode!
     var thoughtCloud4: SKSpriteNode!
-    
-    
-    var state: gameState = .Title
     
     var keepTimerOnTrack: Int = 1
     
@@ -133,13 +132,13 @@ class GameScene: SKScene {
         restartButton.state = .Hidden
         
         startButton.selectedHandler = {
-            self.state = .Playing
+            state = .Playing
             self.startButton.hidden = true
             
         }
         
 
-        self.state = .Ready
+        state = .Ready
         
     }
     
@@ -156,6 +155,7 @@ class GameScene: SKScene {
         
         //This will be for implementing scores
         if state != .GameOver {
+
             for touch in touches {
                 let point = touch.locationInNode(self)
                 print(point)
@@ -216,6 +216,7 @@ class GameScene: SKScene {
                 
             }
         }
+
     }
     
     
@@ -225,7 +226,7 @@ class GameScene: SKScene {
         /* Basically if it's game over or the start menu, then the timer countdown will not start to decrease*/
         if state != .Playing { return }
         
-        
+
         /* Decreases the timer each time the program goes through the update function */
         timer -= 0.01
         
@@ -236,6 +237,7 @@ class GameScene: SKScene {
         
         
         //This if statement will make the train light change colors and reset the timer when the var "keepTimerOnTrack" is 1 and the timer is between 0 to -0.01
+        
         if keepTimerOnTrack == 1 && timer < 0  && timer > -0.01{
             
             timerBar.hidden = true
@@ -253,10 +255,10 @@ class GameScene: SKScene {
             
             
             //Action sequence is created in order to change the color of the light above the train doors
-            let action = SKAction.colorizeWithColor(UIColor.greenColor(), colorBlendFactor: 0, duration: 0.1)
-            let action1 = SKAction.colorizeWithColor(UIColor.yellowColor(), colorBlendFactor: 0, duration: 0.1)
-            let action2 = SKAction.colorizeWithColor(UIColor.grayColor(), colorBlendFactor: 0, duration: 0.1)
-            let waitAction = SKAction.waitForDuration(0.5)
+            let action = SKAction.colorizeWithColor(UIColor.greenColor(), colorBlendFactor: 0, duration: 1)
+            let action1 = SKAction.colorizeWithColor(UIColor.yellowColor(), colorBlendFactor: 0, duration: 1)
+            let action2 = SKAction.colorizeWithColor(UIColor.grayColor(), colorBlendFactor: 0, duration: 1)
+            let waitAction = SKAction.waitForDuration(1)
             
             let recolor = SKAction.sequence([action, waitAction, action1, waitAction, action2, waitAction])
             self.trainLight.runAction(recolor, completion: {
@@ -275,20 +277,25 @@ class GameScene: SKScene {
                 self.Passenger2.sleeping()
                 self.Passenger3.sleeping()
                 self.Passenger4.sleeping()
-                
+                self.check()
+
                 
             })
             
+            
             //Helps put "keepTimerOnTrack" back to 1 so that the program may enter the if loop and change colours again in the next round
             keepTimerOnTrack += 1
+
+            
         }
-        
+
+
         
         
     }
     
     func gameOver(){
-        self.state = .GameOver
+        state = .GameOver
         
         let moveDown = SKAction.moveByX(0, y:-320, duration:0.5)
         let downSequence = SKAction.sequence([moveDown])
@@ -313,7 +320,12 @@ class GameScene: SKScene {
         
         }
     
+    func check(){
+        if Passenger1.awakeSign.hidden == false || Passenger2.awakeSign.hidden == false || Passenger3.awakeSign.hidden == false || Passenger4.awakeSign.hidden == false{
+                gameOver()
+    }
     
+    }
     
     
     
