@@ -11,8 +11,7 @@ import SpriteKit
 enum gameState {
     case Title, Ready, Playing, GameOver
 }
-var state: gameState = .Title
-
+var state: gameState = .Ready
 
 class GameScene: SKScene {
     
@@ -77,7 +76,7 @@ class GameScene: SKScene {
     
     
     var restartButton: MSButtonNode!
-    var startButton: MSButtonNode!
+    //var startButton: MSButtonNode!
     
     
     override func didMoveToView(view: SKView) {
@@ -99,7 +98,6 @@ class GameScene: SKScene {
         
         timerBar = childNodeWithName("timerBar") as! SKSpriteNode
         scoreLabel = childNodeWithName("scoreLabel") as! SKLabelNode
-        startButton = childNodeWithName("startButton") as! MSButtonNode
         
         //Instead of code connections similar to ones above, the signs are connected while Passenger1 (2,3...etc.) is being initialized for the Passenger class
         Passenger1 = Passenger(sleepSign: childNodeWithName("sleepSign") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign") as! SKSpriteNode, thoughtCloud: childNodeWithName("thoughtCloud1") as! SKSpriteNode, sprite: childNodeWithName("Pass1") as! SKSpriteNode)
@@ -127,30 +125,27 @@ class GameScene: SKScene {
             /* Restart game scene */
             skView.presentScene(scene)
             
+            state = .Playing
+            
         }
         /* Hide restart button */
         restartButton.state = .Hidden
         
-        startButton.selectedHandler = {
-            state = .Playing
-            self.startButton.hidden = true
-            
-        }
+
         
 
-        state = .Ready
+        if state == .Ready{
+            state = .Playing
+        }
+
         
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
         
-        /*Game will not continue if it is game over
-         
-         NOTE: Consider getting rid of the .Title state, unless start menu is created in which case, make sure the start menu is in the state of .Title  */
-
-        
-        if state == .GameOver || state == .Title  || state == .Ready { return }
+        /* Game will not continue if it is game over */
+        if state == .GameOver || state == .Title{return}
         
         
         //This will be for implementing scores
@@ -302,23 +297,10 @@ class GameScene: SKScene {
         
         self.endGameBackground.runAction(downSequence)
         
-        let skView = self.view as SKView!
-
         restartButton.state = .Active
-        
-        if restartButton.state == .Hidden{
-           
-            /* Restart GameScene */
-            skView.presentScene(scene)
-            
-            /* Start game */
-            state = .Ready
-            startButton.hidden = false
+
         }
-        
-        
-        
-        }
+    
     
     func check(){
         if Passenger1.awakeSign.hidden == false || Passenger2.awakeSign.hidden == false || Passenger3.awakeSign.hidden == false || Passenger4.awakeSign.hidden == false{
