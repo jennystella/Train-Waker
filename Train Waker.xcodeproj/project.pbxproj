@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CC01F1481D47D6E6000ECA14 /* StartMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC01F1471D47D6E6000ECA14 /* StartMenu.swift */; };
 		CC98A6171D46C6BB00A8BA6C /* StartMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = CC98A6161D46C6BA00A8BA6C /* StartMenu.sks */; };
+		CCCA25031D4A832E00FEAF79 /* TrainLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCA25021D4A832E00FEAF79 /* TrainLight.swift */; };
 		CCDB0D431D3D49C900BA7F6F /* Passenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB0D421D3D49C900BA7F6F /* Passenger.swift */; };
 		CCE260941D370BE8004DE1B7 /* WaitLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE260931D370BE8004DE1B7 /* WaitLight.swift */; };
 		CCE6B4601D42BC9F003C06D1 /* MSButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE6B45F1D42BC9F003C06D1 /* MSButtonNode.swift */; };
@@ -43,6 +44,7 @@
 /* Begin PBXFileReference section */
 		CC01F1471D47D6E6000ECA14 /* StartMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartMenu.swift; sourceTree = "<group>"; };
 		CC98A6161D46C6BA00A8BA6C /* StartMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartMenu.sks; sourceTree = "<group>"; };
+		CCCA25021D4A832E00FEAF79 /* TrainLight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainLight.swift; sourceTree = "<group>"; };
 		CCDB0D421D3D49C900BA7F6F /* Passenger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Passenger.swift; path = ../Passenger.swift; sourceTree = "<group>"; };
 		CCE260931D370BE8004DE1B7 /* WaitLight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WaitLight.swift; path = ../WaitLight.swift; sourceTree = "<group>"; };
 		CCE6B45F1D42BC9F003C06D1 /* MSButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSButtonNode.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				CC01F1471D47D6E6000ECA14 /* StartMenu.swift */,
 				CCE6B45F1D42BC9F003C06D1 /* MSButtonNode.swift */,
 				CCE260931D370BE8004DE1B7 /* WaitLight.swift */,
+				CCCA25021D4A832E00FEAF79 /* TrainLight.swift */,
 				CCDB0D421D3D49C900BA7F6F /* Passenger.swift */,
 				CCEF56F01D343E6A00EBD2CD /* GameViewController.swift */,
 				CCEF56F21D343E6A00EBD2CD /* Main.storyboard */,
@@ -281,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCEF56EF1D343E6A00EBD2CD /* GameScene.swift in Sources */,
+				CCCA25031D4A832E00FEAF79 /* TrainLight.swift in Sources */,
 				CCEF56F11D343E6A00EBD2CD /* GameViewController.swift in Sources */,
 				CCDB0D431D3D49C900BA7F6F /* Passenger.swift in Sources */,
 				CCE6B4601D42BC9F003C06D1 /* MSButtonNode.swift in Sources */,

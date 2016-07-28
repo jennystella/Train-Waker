@@ -6,6 +6,13 @@
 //  Copyright (c) 2016 Jenny Kim. All rights reserved.
 //
 
+
+
+/*NOTE: SET A SPEED LIMIT TO TIMER!!!!!!!!!
+ Also get the timer of train light to move
+ Find alternative way to change colour or test out the NSTimeInterval
+ 
+ */
 import SpriteKit
 
 enum gameState {
@@ -16,6 +23,13 @@ var state: gameState = .Ready
 class GameScene: SKScene {
     
     var trainLight: SKSpriteNode!
+    var trainLightSpace: CGFloat = 1.0{
+        didSet{
+            if trainLightSpace > 1.0 {trainLightSpace = 1.0}
+            trainLight.xScale = trainLightSpace
+        }
+    }
+    var trainLightBase: SKSpriteNode!
     
     var waitLight: SKSpriteNode!
     var waitLight2: SKSpriteNode!
@@ -65,6 +79,10 @@ class GameScene: SKScene {
     var thoughtCloud4: SKSpriteNode!
     
     var keepTimerOnTrack: Int = 1
+    var trackRounds: Int = 1
+    var spriteWakeUp: Bool = true
+    var timerBarSpeed: Double = 0.008
+    var trainLightBarSpeed: Double = 0.008
     
     let screenSize: CGRect = UIScreen.mainScreen().bounds
     
@@ -76,13 +94,16 @@ class GameScene: SKScene {
     
     
     var restartButton: MSButtonNode!
-    //var startButton: MSButtonNode!
     
+    var changedToRed: Bool = false
+    var changedToYellow: Bool = false
+    var changedToGreen: Bool = false
     
     override func didMoveToView(view: SKView) {
         
         /* Setup your scene here */
         trainLight = childNodeWithName("trainLight") as! SKSpriteNode
+        trainLightBase = childNodeWithName("trainLightBase") as! SKSpriteNode
         
         waitLight = childNodeWithName("waitLight") as! SKSpriteNode
         waitLight2 = childNodeWithName("waitLight2") as! SKSpriteNode
@@ -221,73 +242,64 @@ class GameScene: SKScene {
         /* Basically if it's game over or the start menu, then the timer countdown will not start to decrease*/
         if state != .Playing { return }
         
-
-        /* Decreases the timer each time the program goes through the update function */
-        timer -= 0.01
+        //Ultimately decreases the timer each time the program goes through the update function. Increases the speed at which it decreases every 5 rounds. Stops the timer from decreasing when it's 0 or less.
+        if timer > 0{
+        if trackRounds % 5 == 0{
+           timerBarSpeed += 0.0001
+        }
         
-        //print(timerBar.size.width)
+        timer -= CGFloat(timerBarSpeed)
+        }
         
         //Calls the turnOnWaitLight function in WaitLight class to make wait light dots appear
         WaitLight(scene1: scene as! GameScene).turnOnWaitLight()
         
         
+        
         //This if statement will make the train light change colors and reset the timer when the var "keepTimerOnTrack" is 1 and the timer is between 0 to -0.01
         
-        if keepTimerOnTrack == 1 && timer < 0  && timer > -0.01{
-            
-            timerBar.hidden = true
+        if trainLightSpace > -0.1 && timer < 0  && timer > -0.1{
+
+        
+            trackRounds += 1
             
             
             //By calling the randomawake function, the passengers will randomly want to be awake. Depending on the number (0 or 1) that is generated, the passenger will either stay asleep or want to be woken up
-            Passenger1.randomawake()
-            Passenger2.randomawake()
-            Passenger3.randomawake()
-            Passenger4.randomawake()
+            if spriteWakeUp == true{
+                Passenger1.randomawake()
+                Passenger2.randomawake()
+                Passenger3.randomawake()
+                Passenger4.randomawake()
             
-            if Passenger1.awakeSign.hidden == true && Passenger2.awakeSign.hidden == true && Passenger3.awakeSign.hidden == true && Passenger4.awakeSign.hidden == true{
-                 Passenger2.awake()
+                if Passenger1.awakeSign.hidden == true && Passenger2.awakeSign.hidden == true && Passenger3.awakeSign.hidden == true && Passenger4.awakeSign.hidden == true{
+                    Passenger2.awake()
             }
             
+                spriteWakeUp = false
+            }
             
-            //Action sequence is created in order to change the color of the light above the train doors
-            let action = SKAction.colorizeWithColor(UIColor.greenColor(), colorBlendFactor: 0, duration: 1)
-            let action1 = SKAction.colorizeWithColor(UIColor.yellowColor(), colorBlendFactor: 0, duration: 1)
-            let action2 = SKAction.colorizeWithColor(UIColor.grayColor(), colorBlendFactor: 0, duration: 1)
-            let waitAction = SKAction.waitForDuration(1)
+            if trainLightSpace > 0{
+                if trackRounds % 5 == 0{
+                    trainLightBarSpeed += 0.0001
+                }
+                
+                trainLightSpace -= CGFloat(trainLightBarSpeed)
+            }
             
-            let recolor = SKAction.sequence([action, waitAction, action1, waitAction, action2, waitAction])
-            self.trainLight.runAction(recolor, completion: {
-                
-                //After the recolor sequence has run, the following statements will run as well
-                self.keepTimerOnTrack -= 1
-                self.timer = 1.0
-                self.timerBar.hidden = false
-                
-                self.waitLight.hidden = true
-                self.waitLight2.hidden = true
-                self.waitLight3.hidden = true
-                self.waitLight4.hidden = true
-                
-                self.Passenger1.sleeping()
-                self.Passenger2.sleeping()
-                self.Passenger3.sleeping()
-                self.Passenger4.sleeping()
-                self.check()
-
-                
-            })
+            //This will assign light to the class of TrainLight and then the program will call the function colorChange witht he properties of light. This way, the properties of TrainLight are not called over and over again, like how it would have done if we did "TrainLight(scene1: scene as! GameScene).colorChange
+            let light = TrainLight(scene1: scene as! GameScene)
             
             
-            //Helps put "keepTimerOnTrack" back to 1 so that the program may enter the if loop and change colours again in the next round
-            keepTimerOnTrack += 1
-
+            colorChange(light)
+            
+            
+            completeRound()
             
         }
-
-
-        
-        
     }
+    
+    
+    
     
     func gameOver(){
         state = .GameOver
@@ -302,14 +314,77 @@ class GameScene: SKScene {
         }
     
     
+    
     func check(){
         if Passenger1.awakeSign.hidden == false || Passenger2.awakeSign.hidden == false || Passenger3.awakeSign.hidden == false || Passenger4.awakeSign.hidden == false{
                 gameOver()
     }
-    
+        
     }
     
+    func completeRound(){
+        if trainLightSpace <= 0 && trainLightSpace > -0.1{
+            let action4 = SKAction.colorizeWithColor(UIColor.darkGrayColor(), colorBlendFactor: 0, duration: 0.5)
+            let recolor4 = SKAction.sequence([action4])
+            trainLight.runAction(recolor4)
+            
+            
+            //After the recolor sequence has run, the following statements will run as well
+            timer = 1.0
+            timerBar.hidden = false
+            
+            trainLightSpace = 1.0
+            changedToGreen = false
+            changedToYellow = false
+            changedToRed = false
+            
+            waitLight.hidden = true
+            waitLight2.hidden = true
+            waitLight3.hidden = true
+            waitLight4.hidden = true
+            
+            Passenger1.sleeping()
+            Passenger2.sleeping()
+            Passenger3.sleeping()
+            Passenger4.sleeping()
+            check()
+            spriteWakeUp = true
+
+        }
+    }
     
+    func colorChange(light: TrainLight) {
+    
+        let calculate1: Float = Float(light.trainLightOGWidth * (2.0/3))
+        let calculate2: Float = Float(light.trainLightOGWidth * (1.0/3))
+        
+        if light.trainLightWidth > calculate1 && !changedToGreen {
+            changedToGreen = true
+            let action1 = SKAction.colorizeWithColor(UIColor.greenColor(), colorBlendFactor: 0, duration: 0.5)
+            let waitAction = SKAction.waitForDuration(0.5)
+            let recolor1 = SKAction.sequence([action1, waitAction])
+            trainLight.runAction(recolor1)
+            
+            
+        }
+        
+        if light.trainLightWidth > calculate2 && light.trainLightWidth < calculate1 && !changedToYellow{
+            let action2 = SKAction.colorizeWithColor(UIColor.yellowColor(), colorBlendFactor: 0, duration: 0.5)
+            let waitAction = SKAction.waitForDuration(0.5)
+            let recolor2 = SKAction.sequence([action2, waitAction])
+            trainLight.runAction(recolor2)
+            changedToYellow = true
+        }
+        
+        if light.trainLightWidth > 0 && light.trainLightWidth < calculate2 && !changedToRed {
+            let action3 = SKAction.colorizeWithColor(UIColor.redColor(), colorBlendFactor: 0, duration: 0.5)
+            let waitAction = SKAction.waitForDuration(0.5)
+            let recolor3 = SKAction.sequence([action3, waitAction])
+            trainLight.runAction(recolor3)
+            changedToRed = true
+        }
+    
+    }
     
 }
 
