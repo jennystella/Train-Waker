@@ -29,7 +29,7 @@
 import SpriteKit
 
 enum gameState {
-    case Title, Ready, Playing, GameOver
+    case Title, Ready, Playing, Paused, GameOver
 }
 var state: gameState = .Ready
 
@@ -138,6 +138,10 @@ class GameScene: SKScene {
     var changedToGreen: Bool = false
     
     var showMessage: Bool = true
+    var showHelp: Bool = false
+    
+    /* Level loader holder */
+    var HelpSceneRef: SKReferenceNode!
     
     override func didMoveToView(view: SKView) {
         
@@ -180,7 +184,9 @@ class GameScene: SKScene {
         bonusSign3.alpha = 0
         bonusSign4.alpha = 0
 
-
+        HelpSceneRef = childNodeWithName("//HelpSceneRef") as! SKReferenceNode
+        
+        
 
         endGameBackground = childNodeWithName("endGameBackground") as! SKSpriteNode
         endScoreLabel = childNodeWithName("//endScoreLabel") as! SKLabelNode
@@ -195,18 +201,27 @@ class GameScene: SKScene {
         helpGameButton.selectedHandler = {
             
             gameManager.lastScene = "gameScene"
-
-            /* Grab reference to our SpriteKit view */
-            let skView = self.view as SKView!
             
-            /* Load Game scene */
-            let scene = HelpScene(fileNamed:"HelpScene") as HelpScene!
+            state = .Paused
             
-            /* Ensure correct aspect mode */
-            scene.scaleMode = .AspectFill
+            let moveDown = SKAction.moveByX(0, y:-320, duration:0)
+            let downSequence = SKAction.sequence([moveDown])
             
-            /* Restart game scene */
-            skView.presentScene(scene)
+            self.HelpSceneRef.runAction(downSequence)
+            
+            self.showHelp = true
+            
+//            /* Grab reference to our SpriteKit view */
+//            let skView = self.view as SKView!
+//            
+//            /* Load Game scene */
+//            let scene = HelpScene(fileNamed:"HelpScene") as HelpScene!
+//            
+//            /* Ensure correct aspect mode */
+//            scene.scaleMode = .AspectFill
+//            
+//            /* Restart game scene */
+//            skView.presentScene(scene)
             
         }
         
@@ -255,10 +270,10 @@ class GameScene: SKScene {
 
             for touch in touches {
                 let point = touch.locationInNode(self)
-                print(point)
+                //print(point)
                 
                 let nodeTouched = nodeAtPoint(point)
-                print(nodeTouched)
+                //print(nodeTouched)
                 
                 
                 //Passenger 1 is touched
@@ -266,8 +281,8 @@ class GameScene: SKScene {
                     if nodeTouched.name == "touchArea1"{
                         if colorState == .Green{
                             score += scoreMultiplier * 2
-                            print("Haha")
-                            print(scoreMultiplier)
+                            //print("Haha")
+                            //print(scoreMultiplier)
                             bonusFade(bonusSign1)
 
                         }
@@ -340,10 +355,23 @@ class GameScene: SKScene {
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered*/
         
+        if state == .Paused {
+            return
+        }
+        
         /* Basically if it's game over or the start menu, then the timer countdown will not start to decrease*/
         if state != .Playing { return }
         
-        if Double(trackRounds) % 5.0 == 0 && scoreAllow == true{
+        if showHelp == true{
+            let moveUp = SKAction.moveByX(0, y:320, duration:0)
+            let upSequence = SKAction.sequence([moveUp])
+            
+            self.HelpSceneRef.runAction(upSequence)
+            
+            showHelp = false
+        }
+        
+        if Double(trackRounds) % 4.0 == 0 && scoreAllow == true{
             scoreMultiplier += 1
             scoreAllow = false
         }
@@ -354,8 +382,8 @@ class GameScene: SKScene {
         }
         //Ultimately decreases the timer each time the program goes through the update function. Increases the speed at which it decreases every 5 rounds. Stops the timer from decreasing when it's 0 or less.
         if timer > 0{
-        if Double(trackRounds) % 5 == 0 && timeAllow == true{
-            timerBarSpeed += 0.001
+        if Double(trackRounds) % 4 == 0 && timeAllow == true && timerBarSpeed < 0.016{
+            timerBarSpeed += 0.002
             timeAllow = false
         }
         
@@ -386,12 +414,13 @@ class GameScene: SKScene {
             }
             
             if trainLightSpace > 0{
-                if Double(trackRounds) % 5 == 0 && trainSpeedAllow == true{
-                    trainLightBarSpeed += 0.001
+                if Double(trackRounds) % 4 == 0 && trainSpeedAllow == true && trainLightBarSpeed < 0.016{
+                    trainLightBarSpeed += 0.002
                     trainSpeedAllow = false
                 }
                 
                 trainLightSpace -= CGFloat(trainLightBarSpeed)
+                print(trainLightBarSpeed)
             }
             
             //This will assign light to the class of TrainLight and then the program will call the function colorChange witht he properties of light. This way, the properties of TrainLight are not called over and over again, like how it would have done if we did "TrainLight(scene1: scene as! GameScene).colorChange

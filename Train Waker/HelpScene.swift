@@ -19,8 +19,11 @@ class HelpScene: SKScene{
 
         helpExitButton.selectedHandler = {
            
-//            if gameManager.lastScene == "gameScene"{
-//                /* Grab reference to our SpriteKit view */
+            
+            if gameManager.lastScene == "gameScene"{
+                
+                state = .Playing
+                /* Grab reference to our SpriteKit view */
 //                let skView = self.view as SKView!
 //                
 //                /* Load Game scene */
@@ -29,11 +32,13 @@ class HelpScene: SKScene{
 //                /* Ensure correct aspect mode */
 //                scene.scaleMode = .AspectFill
 //                
-//                /* Restart game scene */
-//                skView.presentScene(scene)
-//            }
+//                state = .Playing
+//                
+////                /* Restart game scene */
+////                skView.presentScene(scene)
+            }
             
-             if gameManager.lastScene == "startMenu"{
+              else if gameManager.lastScene == "startMenu"{
                 /* Grab reference to our SpriteKit view */
                 let skView = self.view as SKView!
                 
@@ -54,7 +59,6 @@ class HelpScene: SKScene{
         }
     
     }
-    
     
     
     
