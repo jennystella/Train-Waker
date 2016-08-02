@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		CC01F1481D47D6E6000ECA14 /* StartMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC01F1471D47D6E6000ECA14 /* StartMenu.swift */; };
+		CC8339B81D4FC28900BD38BE /* HelpScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CC8339B71D4FC28900BD38BE /* HelpScene.sks */; };
+		CC8339BA1D4FD81A00BD38BE /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8339B91D4FD81A00BD38BE /* UserState.swift */; };
+		CC8339BC1D4FFC8E00BD38BE /* HelpScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8339BB1D4FFC8E00BD38BE /* HelpScene.swift */; };
 		CC98A6171D46C6BB00A8BA6C /* StartMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = CC98A6161D46C6BA00A8BA6C /* StartMenu.sks */; };
 		CCCA25031D4A832E00FEAF79 /* TrainLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCA25021D4A832E00FEAF79 /* TrainLight.swift */; };
 		CCDB0D431D3D49C900BA7F6F /* Passenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB0D421D3D49C900BA7F6F /* Passenger.swift */; };
@@ -43,6 +46,9 @@
 
 /* Begin PBXFileReference section */
 		CC01F1471D47D6E6000ECA14 /* StartMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartMenu.swift; sourceTree = "<group>"; };
+		CC8339B71D4FC28900BD38BE /* HelpScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HelpScene.sks; sourceTree = "<group>"; };
+		CC8339B91D4FD81A00BD38BE /* UserState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
+		CC8339BB1D4FFC8E00BD38BE /* HelpScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpScene.swift; sourceTree = "<group>"; };
 		CC98A6161D46C6BA00A8BA6C /* StartMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = StartMenu.sks; sourceTree = "<group>"; };
 		CCCA25021D4A832E00FEAF79 /* TrainLight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrainLight.swift; sourceTree = "<group>"; };
 		CCDB0D421D3D49C900BA7F6F /* Passenger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Passenger.swift; path = ../Passenger.swift; sourceTree = "<group>"; };
@@ -116,8 +122,11 @@
 				CCEF56EA1D343E6A00EBD2CD /* AppDelegate.swift */,
 				CCEF56EC1D343E6A00EBD2CD /* GameScene.sks */,
 				CC98A6161D46C6BA00A8BA6C /* StartMenu.sks */,
+				CC8339B71D4FC28900BD38BE /* HelpScene.sks */,
+				CC8339B91D4FD81A00BD38BE /* UserState.swift */,
 				CCEF56EE1D343E6A00EBD2CD /* GameScene.swift */,
 				CC01F1471D47D6E6000ECA14 /* StartMenu.swift */,
+				CC8339BB1D4FFC8E00BD38BE /* HelpScene.swift */,
 				CCE6B45F1D42BC9F003C06D1 /* MSButtonNode.swift */,
 				CCE260931D370BE8004DE1B7 /* WaitLight.swift */,
 				CCCA25021D4A832E00FEAF79 /* TrainLight.swift */,
@@ -259,6 +268,7 @@
 				CCEF56F91D343E6A00EBD2CD /* LaunchScreen.storyboard in Resources */,
 				CCEF56F61D343E6A00EBD2CD /* Assets.xcassets in Resources */,
 				CCEF56F41D343E6A00EBD2CD /* Main.storyboard in Resources */,
+				CC8339B81D4FC28900BD38BE /* HelpScene.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC8339BA1D4FD81A00BD38BE /* UserState.swift in Sources */,
 				CCEF56EF1D343E6A00EBD2CD /* GameScene.swift in Sources */,
 				CCCA25031D4A832E00FEAF79 /* TrainLight.swift in Sources */,
 				CCEF56F11D343E6A00EBD2CD /* GameViewController.swift in Sources */,
@@ -291,6 +302,7 @@
 				CC01F1481D47D6E6000ECA14 /* StartMenu.swift in Sources */,
 				CCEF56EB1D343E6A00EBD2CD /* AppDelegate.swift in Sources */,
 				CCE260941D370BE8004DE1B7 /* WaitLight.swift in Sources */,
+				CC8339BC1D4FFC8E00BD38BE /* HelpScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

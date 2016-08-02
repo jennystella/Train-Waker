@@ -7,12 +7,25 @@
 //
 
 
-
-/*NOTE: SET A SPEED LIMIT TO TIMER!!!!!!!!!
- Also get the timer of train light to move
- Find alternative way to change colour or test out the NSTimeInterval
+/*
+ NOTE: SET A SPEED LIMIT TO TIMER!!!!!!!!!
+-Play around with speeds at rounds*
+ 
+ 
+-Bonus points*
+-Instructions* - LATER add in screenshots 
+-Background Moving
+-Pause
+-High Score
+-Make random texts appear for passengers and trick 'em*
+-Make one seat on the other side
+-Get passenger sprites
+-Sounds
+-Vibration
+-Movement on the train
  
  */
+
 import SpriteKit
 
 enum gameState {
@@ -20,9 +33,16 @@ enum gameState {
 }
 var state: gameState = .Ready
 
+enum Color{
+    case Green, Yellow, Red, Nothing
+}
+
 class GameScene: SKScene {
     
+    var colorState: Color = .Nothing
+    
     var trainLight: SKSpriteNode!
+    var trainSpeedAllow: Bool = true
     var trainLightSpace: CGFloat = 1.0{
         didSet{
             if trainLightSpace > 1.0 {trainLightSpace = 1.0}
@@ -39,6 +59,7 @@ class GameScene: SKScene {
     
     //This is for the timer countdown of the train light
     var timerBar: SKSpriteNode!
+    var timeAllow: Bool = true
     var timer: CGFloat = 1.0{
         didSet{
             /* Cap timer */
@@ -48,14 +69,15 @@ class GameScene: SKScene {
     }
     
     var scoreLabel: SKLabelNode!
+    var scoreMultiplier: Int = 1
+    var scoreAllow: Bool = true
     var score: Int = 0 {
         didSet {
             scoreLabel.text = String(score)
             endScoreLabel.text = String(score)
         }
     }
-    
-    
+
     //Objects Passenger
     //This calls the passenger class and assigns a passgener object
     var Passenger1: Passenger!
@@ -78,10 +100,22 @@ class GameScene: SKScene {
     var thoughtCloud3: SKSpriteNode!
     var thoughtCloud4: SKSpriteNode!
     
+    var questionSign1: SKSpriteNode!
+    var questionSign2: SKSpriteNode!
+    var questionSign3: SKSpriteNode!
+    var questionSign4: SKSpriteNode!
+
+    
+    var bonusSign1: SKLabelNode!
+    var bonusSign2: SKLabelNode!
+    var bonusSign3: SKLabelNode!
+    var bonusSign4: SKLabelNode!
+
+    
     var keepTimerOnTrack: Int = 1
     var trackRounds: Int = 1
     var spriteWakeUp: Bool = true
-    var timerBarSpeed: Double = 0.008
+    var timerBarSpeed: Double = 0.007
     var trainLightBarSpeed: Double = 0.008
     
     let screenSize: CGRect = UIScreen.mainScreen().bounds
@@ -92,14 +126,22 @@ class GameScene: SKScene {
     var gameOverLabel: SKLabelNode!
     var endScoreLabel: SKLabelNode!
     
+    var message: SKSpriteNode!
+    var messageText: SKLabelNode!
+    
     
     var restartButton: MSButtonNode!
+    var helpGameButton: MSButtonNode!
     
     var changedToRed: Bool = false
     var changedToYellow: Bool = false
     var changedToGreen: Bool = false
     
+    var showMessage: Bool = true
+    
     override func didMoveToView(view: SKView) {
+        
+        let gameManager = UserState.sharedInstance
         
         /* Setup your scene here */
         trainLight = childNodeWithName("trainLight") as! SKSpriteNode
@@ -116,19 +158,59 @@ class GameScene: SKScene {
         waitLight3.hidden = true
         waitLight4.hidden = true
         
-        
+//        let highScore = gameManager.highScore
+
+
         timerBar = childNodeWithName("timerBar") as! SKSpriteNode
         scoreLabel = childNodeWithName("scoreLabel") as! SKLabelNode
         
         //Instead of code connections similar to ones above, the signs are connected while Passenger1 (2,3...etc.) is being initialized for the Passenger class
-        Passenger1 = Passenger(sleepSign: childNodeWithName("sleepSign") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign") as! SKSpriteNode, thoughtCloud: childNodeWithName("thoughtCloud1") as! SKSpriteNode, sprite: childNodeWithName("Pass1") as! SKSpriteNode)
-        Passenger2 = Passenger(sleepSign: childNodeWithName("sleepSign2") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign2") as! SKSpriteNode, thoughtCloud: childNodeWithName("thoughtCloud2") as! SKSpriteNode, sprite: childNodeWithName("Pass2") as! SKSpriteNode)
-        Passenger3 = Passenger(sleepSign: childNodeWithName("sleepSign3") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign3") as! SKSpriteNode, thoughtCloud: childNodeWithName("thoughtCloud3") as! SKSpriteNode, sprite: childNodeWithName("Pass3") as! SKSpriteNode)
-        Passenger4 = Passenger(sleepSign: childNodeWithName("sleepSign4") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign4") as! SKSpriteNode, thoughtCloud: childNodeWithName("thoughtCloud4") as! SKSpriteNode, sprite: childNodeWithName("Pass4") as! SKSpriteNode)
+        Passenger1 = Passenger(sleepSign: childNodeWithName("sleepSign") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign") as! SKSpriteNode, thoughtCloud: childNodeWithName("thoughtCloud1") as! SKSpriteNode, questionSign: childNodeWithName("questionSign1") as! SKSpriteNode, sprite: childNodeWithName("Pass1") as! SKSpriteNode)
+        Passenger2 = Passenger(sleepSign: childNodeWithName("sleepSign2") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign2") as! SKSpriteNode, thoughtCloud: childNodeWithName("thoughtCloud2") as! SKSpriteNode, questionSign: childNodeWithName("questionSign2") as! SKSpriteNode, sprite: childNodeWithName("Pass2") as! SKSpriteNode)
+        Passenger3 = Passenger(sleepSign: childNodeWithName("sleepSign3") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign3") as! SKSpriteNode, thoughtCloud: childNodeWithName("thoughtCloud3") as! SKSpriteNode, questionSign: childNodeWithName("questionSign3") as! SKSpriteNode, sprite: childNodeWithName("Pass3") as! SKSpriteNode)
+        Passenger4 = Passenger(sleepSign: childNodeWithName("sleepSign4") as! SKSpriteNode, awakeSign: childNodeWithName("awakeSign4") as! SKSpriteNode, thoughtCloud: childNodeWithName("thoughtCloud4") as! SKSpriteNode, questionSign: childNodeWithName("questionSign4") as! SKSpriteNode, sprite: childNodeWithName("Pass4") as! SKSpriteNode)
         
+        bonusSign1 = childNodeWithName("bonusSign1") as! SKLabelNode
+        bonusSign2 = childNodeWithName("bonusSign2") as! SKLabelNode
+        bonusSign3 = childNodeWithName("bonusSign3") as! SKLabelNode
+        bonusSign4 = childNodeWithName("bonusSign4") as! SKLabelNode
+        
+        bonusSign1.alpha = 0
+        bonusSign2.alpha = 0
+        bonusSign3.alpha = 0
+        bonusSign4.alpha = 0
+
+
+
         endGameBackground = childNodeWithName("endGameBackground") as! SKSpriteNode
         endScoreLabel = childNodeWithName("//endScoreLabel") as! SKLabelNode
         restartButton = childNodeWithName("//restartButton") as! MSButtonNode
+        helpGameButton = childNodeWithName("helpGameButton") as! MSButtonNode
+        
+        message = childNodeWithName("message") as! SKSpriteNode
+        messageText = childNodeWithName("//messageText") as! SKLabelNode
+        message.alpha = 0.0
+        messageText.alpha = 0.0
+        
+        helpGameButton.selectedHandler = {
+            
+            gameManager.lastScene = "gameScene"
+
+            /* Grab reference to our SpriteKit view */
+            let skView = self.view as SKView!
+            
+            /* Load Game scene */
+            let scene = HelpScene(fileNamed:"HelpScene") as HelpScene!
+            
+            /* Ensure correct aspect mode */
+            scene.scaleMode = .AspectFill
+            
+            /* Restart game scene */
+            skView.presentScene(scene)
+            
+        }
+        
+        
         restartButton.selectedHandler = {
             
             /* Grab reference to our SpriteKit view */
@@ -152,7 +234,6 @@ class GameScene: SKScene {
         /* Hide restart button */
         restartButton.state = .Hidden
         
-
         
 
         if state == .Ready{
@@ -183,8 +264,16 @@ class GameScene: SKScene {
                 //Passenger 1 is touched
                 if Passenger1.awakeSign.hidden == false{
                     if nodeTouched.name == "touchArea1"{
-                        score += 1
+                        if colorState == .Green{
+                            score += scoreMultiplier * 2
+                            print("Haha")
+                            print(scoreMultiplier)
+                            bonusFade(bonusSign1)
+
+                        }
+                        else {score += scoreMultiplier}
                         Passenger1.awaken()
+                        
                     }
                 }else if Passenger1.awakeSign.hidden == true{
                     if nodeTouched.name == "touchArea1"{
@@ -196,7 +285,11 @@ class GameScene: SKScene {
                 // Passenger 2 is touched
                 if Passenger2.awakeSign.hidden == false{
                     if nodeTouched.name == "touchArea2"{
-                        score += 1
+                        if colorState == .Green{
+                            score += scoreMultiplier * 2
+                            bonusFade(bonusSign2)
+                        }
+                        else{score += scoreMultiplier}
                         Passenger2.awaken()
                     }
                 }else if Passenger2.awakeSign.hidden == true{
@@ -208,7 +301,11 @@ class GameScene: SKScene {
                 //Passenger 3 is touched
                 if Passenger3.awakeSign.hidden == false{
                     if nodeTouched.name == "touchArea3"{
-                        score += 1
+                        if colorState == .Green{
+                            score += scoreMultiplier * 2
+                            bonusFade(bonusSign3)
+                        }
+                        else{score += scoreMultiplier}
                         Passenger3.awaken()
                     }
                 }else if Passenger3.awakeSign.hidden == true{
@@ -220,7 +317,11 @@ class GameScene: SKScene {
                 //Passenger 4 is touched
                 if Passenger4.awakeSign.hidden == false{
                     if nodeTouched.name == "touchArea4"{
-                        score += 1
+                        if colorState == .Green{
+                            score += scoreMultiplier * 2
+                            bonusFade(bonusSign4)
+                        }
+                        else{score += scoreMultiplier}
                         Passenger4.awaken()
                     }
                }
@@ -242,10 +343,20 @@ class GameScene: SKScene {
         /* Basically if it's game over or the start menu, then the timer countdown will not start to decrease*/
         if state != .Playing { return }
         
+        if Double(trackRounds) % 5.0 == 0 && scoreAllow == true{
+            scoreMultiplier += 1
+            scoreAllow = false
+        }
+        
+        if trackRounds == 10 && showMessage == true{
+            messageSign()
+            showMessage = false
+        }
         //Ultimately decreases the timer each time the program goes through the update function. Increases the speed at which it decreases every 5 rounds. Stops the timer from decreasing when it's 0 or less.
         if timer > 0{
-        if trackRounds % 5 == 0{
-           timerBarSpeed += 0.0001
+        if Double(trackRounds) % 5 == 0 && timeAllow == true{
+            timerBarSpeed += 0.001
+            timeAllow = false
         }
         
         timer -= CGFloat(timerBarSpeed)
@@ -259,17 +370,13 @@ class GameScene: SKScene {
         //This if statement will make the train light change colors and reset the timer when the var "keepTimerOnTrack" is 1 and the timer is between 0 to -0.01
         
         if trainLightSpace > -0.1 && timer < 0  && timer > -0.1{
-
-        
-            trackRounds += 1
-            
             
             //By calling the randomawake function, the passengers will randomly want to be awake. Depending on the number (0 or 1) that is generated, the passenger will either stay asleep or want to be woken up
             if spriteWakeUp == true{
-                Passenger1.randomawake()
-                Passenger2.randomawake()
-                Passenger3.randomawake()
-                Passenger4.randomawake()
+                Passenger1.randomawake(trackRounds)
+                Passenger2.randomawake(trackRounds)
+                Passenger3.randomawake(trackRounds)
+                Passenger4.randomawake(trackRounds)
             
                 if Passenger1.awakeSign.hidden == true && Passenger2.awakeSign.hidden == true && Passenger3.awakeSign.hidden == true && Passenger4.awakeSign.hidden == true{
                     Passenger2.awake()
@@ -279,8 +386,9 @@ class GameScene: SKScene {
             }
             
             if trainLightSpace > 0{
-                if trackRounds % 5 == 0{
-                    trainLightBarSpeed += 0.0001
+                if Double(trackRounds) % 5 == 0 && trainSpeedAllow == true{
+                    trainLightBarSpeed += 0.001
+                    trainSpeedAllow = false
                 }
                 
                 trainLightSpace -= CGFloat(trainLightBarSpeed)
@@ -337,6 +445,7 @@ class GameScene: SKScene {
             changedToGreen = false
             changedToYellow = false
             changedToRed = false
+            colorState = .Nothing
             
             waitLight.hidden = true
             waitLight2.hidden = true
@@ -349,6 +458,12 @@ class GameScene: SKScene {
             Passenger4.sleeping()
             check()
             spriteWakeUp = true
+            
+            scoreAllow = true
+            timeAllow = true
+            trainSpeedAllow = true
+            trackRounds += 1
+            
 
         }
     }
@@ -360,15 +475,16 @@ class GameScene: SKScene {
         
         if light.trainLightWidth > calculate1 && !changedToGreen {
             changedToGreen = true
+            colorState = .Green
             let action1 = SKAction.colorizeWithColor(UIColor.greenColor(), colorBlendFactor: 0, duration: 0.5)
             let waitAction = SKAction.waitForDuration(0.5)
             let recolor1 = SKAction.sequence([action1, waitAction])
             trainLight.runAction(recolor1)
-            
-            
         }
         
+        
         if light.trainLightWidth > calculate2 && light.trainLightWidth < calculate1 && !changedToYellow{
+            colorState = .Yellow
             let action2 = SKAction.colorizeWithColor(UIColor.yellowColor(), colorBlendFactor: 0, duration: 0.5)
             let waitAction = SKAction.waitForDuration(0.5)
             let recolor2 = SKAction.sequence([action2, waitAction])
@@ -376,13 +492,36 @@ class GameScene: SKScene {
             changedToYellow = true
         }
         
+        
         if light.trainLightWidth > 0 && light.trainLightWidth < calculate2 && !changedToRed {
+            colorState = .Red
             let action3 = SKAction.colorizeWithColor(UIColor.redColor(), colorBlendFactor: 0, duration: 0.5)
             let waitAction = SKAction.waitForDuration(0.5)
             let recolor3 = SKAction.sequence([action3, waitAction])
             trainLight.runAction(recolor3)
             changedToRed = true
         }
+    
+    }
+    
+    func bonusFade(bonusSign: SKLabelNode){
+        let fadeAction1 = SKAction.fadeAlphaTo(1, duration: 0.5)
+        let fadeAction2 = SKAction.fadeAlphaTo(0, duration: 0.5)
+        
+        let runFade = SKAction.sequence([fadeAction1, fadeAction2])
+        bonusSign.runAction(runFade)
+
+    }
+    
+    func messageSign(){
+        let fadeAction1 = SKAction.fadeAlphaTo(1, duration: 0.5)
+        let waitAction = SKAction.waitForDuration(1.2)
+        let fadeAction2 = SKAction.fadeAlphaTo(0, duration: 0.5)
+        
+        let runFade = SKAction.sequence([fadeAction1, waitAction, fadeAction2])
+        message.runAction(runFade)
+        messageText.runAction(runFade)
+        
     
     }
     
