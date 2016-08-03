@@ -8,21 +8,19 @@
 
 
 /*
- NOTE: SET A SPEED LIMIT TO TIMER!!!!!!!!!
+
 -Play around with speeds at rounds*
- 
- 
 -Bonus points*
 -Instructions* - LATER add in screenshots 
--Background Moving
--Pause
--High Score
--Make random texts appear for passengers and trick 'em*
+-Tutorial 2
+-Background Moving 3
+-Pause 1
+-High Score, make clearer, goal oriented(?)
+-Make random texts appear for passengers and trick 'em (NOTE: Add it in earlier)*
 -Make one seat on the other side
--Get passenger sprites
--Sounds
+-Get passenger sprites 1/ 4
+-Sounds 5
 -Vibration
--Movement on the train
  
  */
 
@@ -132,16 +130,21 @@ class GameScene: SKScene {
     
     var restartButton: MSButtonNode!
     var helpGameButton: MSButtonNode!
+    var pauseButton: MSButtonNode!
     
     var changedToRed: Bool = false
     var changedToYellow: Bool = false
     var changedToGreen: Bool = false
     
     var showMessage: Bool = true
-    var showHelp: Bool = false
     
     /* Level loader holder */
-    var HelpSceneRef: SKReferenceNode!
+    var helpSceneScreen: HelpScene!
+    
+    var pauseMenu: SKSpriteNode!
+    var playButton: MSButtonNode!
+    var homeButton: MSButtonNode!
+    var refreshButton: MSButtonNode!
     
     override func didMoveToView(view: SKView) {
         
@@ -184,46 +187,38 @@ class GameScene: SKScene {
         bonusSign3.alpha = 0
         bonusSign4.alpha = 0
 
-        HelpSceneRef = childNodeWithName("//HelpSceneRef") as! SKReferenceNode
-        
+        let resourcePath = NSBundle.mainBundle().pathForResource("HelpScene", ofType: "sks")
+        helpSceneScreen = HelpScene(URL: NSURL (fileURLWithPath: resourcePath!))
+        helpSceneScreen.zPosition = 100
+        addChild(helpSceneScreen)
         
 
         endGameBackground = childNodeWithName("endGameBackground") as! SKSpriteNode
         endScoreLabel = childNodeWithName("//endScoreLabel") as! SKLabelNode
         restartButton = childNodeWithName("//restartButton") as! MSButtonNode
         helpGameButton = childNodeWithName("helpGameButton") as! MSButtonNode
+        pauseButton = childNodeWithName("pauseButton") as! MSButtonNode
         
         message = childNodeWithName("message") as! SKSpriteNode
         messageText = childNodeWithName("//messageText") as! SKLabelNode
         message.alpha = 0.0
         messageText.alpha = 0.0
         
+        pauseMenu = childNodeWithName("pauseMenu") as! SKSpriteNode
+        playButton = childNodeWithName("//playButton") as! MSButtonNode
+        homeButton = childNodeWithName("//homeButton") as! MSButtonNode
+        refreshButton = childNodeWithName("//refreshButton") as! MSButtonNode
+
+        
         helpGameButton.selectedHandler = {
             
             gameManager.lastScene = "gameScene"
-            
             state = .Paused
             
-            let moveDown = SKAction.moveByX(0, y:-320, duration:0)
-            let downSequence = SKAction.sequence([moveDown])
-            
-            self.HelpSceneRef.runAction(downSequence)
-            
-            self.showHelp = true
-            
-//            /* Grab reference to our SpriteKit view */
-//            let skView = self.view as SKView!
-//            
-//            /* Load Game scene */
-//            let scene = HelpScene(fileNamed:"HelpScene") as HelpScene!
-//            
-//            /* Ensure correct aspect mode */
-//            scene.scaleMode = .AspectFill
-//            
-//            /* Restart game scene */
-//            skView.presentScene(scene)
+            self.helpSceneScreen.hidden = false
             
         }
+        self.helpSceneScreen.hidden = true
         
         
         restartButton.selectedHandler = {
@@ -249,8 +244,61 @@ class GameScene: SKScene {
         /* Hide restart button */
         restartButton.state = .Hidden
         
-        
+        pauseButton.selectedHandler = {
+            state = .Paused
+            self.homeButton.state = .Active
+            self.playButton.state = .Active
+            self.refreshButton.state = .Active
+            self.pauseMenu.hidden = false
 
+            
+        }
+        
+        pauseMenu.hidden = true
+        homeButton.state = .Hidden
+        playButton.state = .Hidden
+        refreshButton.state = .Hidden
+        
+        homeButton.selectedHandler = {
+            /* Grab reference to our SpriteKit view */
+            let skView = self.view as SKView!
+            
+            /* Load Game scene */
+            let scene = StartMenu(fileNamed:"StartMenu") as StartMenu!
+            
+            /* Ensure correct aspect mode */
+            scene.scaleMode = .AspectFill
+            
+            /* Restart game scene */
+            skView.presentScene(scene)
+        }
+        
+        playButton.selectedHandler = {
+            state = .Playing
+            self.pauseMenu.hidden = true
+            
+        }
+        
+        refreshButton.selectedHandler = {
+            /* Grab reference to our SpriteKit view */
+            let skView = self.view as SKView!
+            
+            /* Load Game scene */
+            let scene = GameScene(fileNamed:"GameScene") as GameScene!
+            
+            //Resets the score for each round :^)
+            self.score = 0
+            
+            /* Ensure correct aspect mode */
+            scene.scaleMode = .AspectFill
+            
+            /* Restart game scene */
+            skView.presentScene(scene)
+            
+            state = .Playing
+        }
+        
+        
         if state == .Ready{
             state = .Playing
         }
@@ -362,14 +410,6 @@ class GameScene: SKScene {
         /* Basically if it's game over or the start menu, then the timer countdown will not start to decrease*/
         if state != .Playing { return }
         
-        if showHelp == true{
-            let moveUp = SKAction.moveByX(0, y:320, duration:0)
-            let upSequence = SKAction.sequence([moveUp])
-            
-            self.HelpSceneRef.runAction(upSequence)
-            
-            showHelp = false
-        }
         
         if Double(trackRounds) % 4.0 == 0 && scoreAllow == true{
             scoreMultiplier += 1

@@ -9,12 +9,14 @@
 import Foundation
 import SpriteKit
 
-class HelpScene: SKScene{
+class HelpScene: SKReferenceNode{
     
     var helpExitButton: MSButtonNode!
     
-    override func didMoveToView(view: SKView) {
-    helpExitButton = childNodeWithName("helpExitButton") as! MSButtonNode
+    override func didLoadReferenceNode(node: SKNode?) {
+    
+        
+        helpExitButton = childNodeWithName("//helpExitButton") as! MSButtonNode
         let gameManager = UserState.sharedInstance
 
         helpExitButton.selectedHandler = {
@@ -23,37 +25,11 @@ class HelpScene: SKScene{
             if gameManager.lastScene == "gameScene"{
                 
                 state = .Playing
-                /* Grab reference to our SpriteKit view */
-//                let skView = self.view as SKView!
-//                
-//                /* Load Game scene */
-//                let scene = GameScene(fileNamed:"GameScene") as GameScene!
-//                
-//                /* Ensure correct aspect mode */
-//                scene.scaleMode = .AspectFill
-//                
-//                state = .Playing
-//                
-////                /* Restart game scene */
-////                skView.presentScene(scene)
+                self.hidden = true
             }
             
               else if gameManager.lastScene == "startMenu"{
-                /* Grab reference to our SpriteKit view */
-                let skView = self.view as SKView!
-                
-                /* Load Game scene */
-                let scene = StartMenu(fileNamed:"StartMenu") as StartMenu!
-                /* Ensure correct aspect mode */
-                scene.scaleMode = .AspectFill
-                
-                /* Show debug */
-                skView.showsPhysics = true
-                skView.showsDrawCount = true
-                skView.showsFPS = true
-                
-                /* Start game scene */
-                skView.presentScene(scene)
+               self.hidden = true
             }
             
         }
