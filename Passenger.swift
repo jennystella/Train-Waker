@@ -60,7 +60,7 @@ class Passenger {
     func randomawake(round: Int){
     
         let choice: Int
-        if round > 10{
+        if round > 3{
         choice = Int(arc4random_uniform(3))
         } else{
             choice = Int(arc4random_uniform(2))

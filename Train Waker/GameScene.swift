@@ -125,6 +125,7 @@ class GameScene: SKScene {
 
     var tapToContinueLabel: SKLabelNode!
     var tapToContinueArea: MSButtonNode!
+//    var tapToContinueArea2: MSButtonNode!
     var congratsLabel: SKLabelNode!
     
     var keepTimerOnTrack: Int = 1
@@ -142,7 +143,6 @@ class GameScene: SKScene {
     var endScoreLabel: SKLabelNode!
     
     var message: SKSpriteNode!
-    var messageText: SKLabelNode!
     
     
     var restartButton: MSButtonNode!
@@ -237,9 +237,11 @@ class GameScene: SKScene {
         
         tapToContinueLabel = childNodeWithName("tapToContinueLabel") as! SKLabelNode
         tapToContinueArea = childNodeWithName("tapToContinueArea") as! MSButtonNode
+//        tapToContinueArea2 = childNodeWithName("tapToContinueArea2") as! MSButtonNode
         congratsLabel = childNodeWithName("congratsLabel") as! SKLabelNode
         tapToContinueLabel.hidden = true
         tapToContinueArea.hidden = true
+//        tapToContinueArea2.hidden = true
         congratsLabel.alpha = 0
         
         tapToContinueArea.selectedHandler = {
@@ -248,9 +250,17 @@ class GameScene: SKScene {
             self.tutorialBox1.hidden = true
             self.tutorialBox2.hidden = true
             self.tutorialBox3.hidden = true
+            self.message.hidden = true
             self.tapToContinueLabel.hidden = true
             self.tapToContinueArea.hidden = true
         }
+        
+//        tapToContinueArea2.selectedHandler = {
+//            state = .Playing
+//            self.message.hidden = true
+//            self.tapToContinueLabel.hidden = true
+//            self.tapToContinueArea2.hidden = true
+//        }
 
 
         
@@ -268,9 +278,7 @@ class GameScene: SKScene {
         pauseButton = childNodeWithName("pauseButton") as! MSButtonNode
         
         message = childNodeWithName("message") as! SKSpriteNode
-        messageText = childNodeWithName("//messageText") as! SKLabelNode
-        message.alpha = 0.0
-        messageText.alpha = 0.0
+        message.hidden = true
         
         pauseMenu = childNodeWithName("pauseMenu") as! SKSpriteNode
         playButton = childNodeWithName("//playButton") as! MSButtonNode
@@ -537,10 +545,11 @@ class GameScene: SKScene {
             scoreAllow = false
         }
         
-        if trackRounds == 10 && showMessage == true{
+        if trackRounds > 3 && showMessage == true && gameManager.tutorialOptional2 == false{
             messageSign()
             showMessage = false
         }
+        
         //Ultimately decreases the timer each time the program goes through the update function. Increases the speed at which it decreases every 5 rounds. Stops the timer from decreasing when it's 0 or less.
         if timer > 0{
         if Double(trackRounds) % 4 == 0 && timeAllow == true && timerBarSpeed < 0.016{
@@ -711,14 +720,12 @@ class GameScene: SKScene {
     }
     
     func messageSign(){
-        let fadeAction1 = SKAction.fadeAlphaTo(1, duration: 0.5)
-        let waitAction = SKAction.waitForDuration(1.2)
-        let fadeAction2 = SKAction.fadeAlphaTo(0, duration: 0.5)
-        
-        let runFade = SKAction.sequence([fadeAction1, waitAction, fadeAction2])
-        message.runAction(runFade)
-        messageText.runAction(runFade)
-        
+        message.hidden = false
+        tapToContinueLabel.hidden = false
+        tapToContinueArea.hidden = false
+        state = .Paused
+        gameManager.tutorialOptional = true
+
     
     }
     

@@ -46,4 +46,10 @@ class UserState {
             NSUserDefaults.standardUserDefaults().synchronize()
         }
     }
+    var tutorialOptional2: Bool = NSUserDefaults.standardUserDefaults().boolForKey("myTutorial2") ?? false {
+        didSet{
+            NSUserDefaults.standardUserDefaults().setBool(tutorialOptional, forKey: "myTutorial2")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+    }
 }
