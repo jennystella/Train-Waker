@@ -24,8 +24,12 @@ class HelpScene: SKReferenceNode{
             
             if gameManager.lastScene == "gameScene"{
                 
-                state = .Playing
+                if gameManager.pause == true{
+                    state = .Paused
+                }
+                else {state = .Playing}
                 self.hidden = true
+                
             }
             
               else if gameManager.lastScene == "startMenu"{

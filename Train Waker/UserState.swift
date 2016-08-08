@@ -9,6 +9,11 @@
 import Foundation
 import SpriteKit
 
+/* Define properties to be stored in NSUserDefaults */
+//extension DefaultsKeys {
+//    static let highScore = DefaultsKey<Int>("highScore")
+//    static let characters = DefaultsKey<NSData>("characters")
+//}
 
 class UserState {
     
@@ -16,15 +21,8 @@ class UserState {
     static let sharedInstance = UserState()
     
     var lastScene: String = "GameScene"
+    var pause: Bool = false
     
-    
-//    var lastScene: String = NSUserDefaults.standardUserDefaults().stringForKey("myLastScene") ?? "gameScene" {
-//                didSet {
-//                    NSUserDefaults.standardUserDefaults().setObject(lastScene, forKey:"myHighScore")
-//                    // Saves to disk immediately, otherwise it will save when it has time
-//                    NSUserDefaults.standardUserDefaults().synchronize()
-//                }
-//            }
 //
 ////    var name: String = NSUserDefaults.standardUserDefaults().stringForKey("myName") ?? "User" {
 ////        didSet {
@@ -42,10 +40,10 @@ class UserState {
 //        }
 //    }
 //    
-//    var tutorialOptional: Bool = NSUserDefaults.standardUserDefaults().boolForKey("myTutorial") ?? false{
-//        didSet{
-//            NSUserDefaults.standardUserDefaults().setBool(tutorialOptional, forKey: "myTutorial")
-//            NSUserDefaults.standardUserDefaults().synchronize()
-//        }
-//    }
+    var tutorialOptional: Bool = NSUserDefaults.standardUserDefaults().boolForKey("myTutorial") ?? false {
+        didSet{
+            NSUserDefaults.standardUserDefaults().setBool(tutorialOptional, forKey: "myTutorial")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+    }
 }

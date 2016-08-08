@@ -8,14 +8,14 @@
 
 
 /*
+ -Tutorial 2 = Check out the commented lines, fill them in and get assets
 
 -Play around with speeds at rounds*
 -Bonus points*
 -Instructions* - LATER add in screenshots 
--Tutorial 2
 -Background Moving 3
--Pause 1
--High Score, make clearer, goal oriented(?)
+-Pause*
+-High Score
 -Make random texts appear for passengers and trick 'em (NOTE: Add it in earlier)*
 -Make one seat on the other side
 -Get passenger sprites 1/ 4
@@ -108,7 +108,24 @@ class GameScene: SKScene {
     var bonusSign2: SKLabelNode!
     var bonusSign3: SKLabelNode!
     var bonusSign4: SKLabelNode!
+    
+    var touchHand1: SKSpriteNode!
+    var touchHand2: SKSpriteNode!
+    var touchHand3: SKSpriteNode!
+    var touchHand4: SKSpriteNode!
+    
+    var tapSign1: SKLabelNode!
+    var tapSign2: SKLabelNode!
+    var tapSign3: SKLabelNode!
+    var tapSign4: SKLabelNode!
+    
+    var tutorialBox1: SKSpriteNode!
+    var tutorialBox2: SKSpriteNode!
+    var tutorialBox3: SKSpriteNode!
 
+    var tapToContinueLabel: SKLabelNode!
+    var tapToContinueArea: MSButtonNode!
+    var congratsLabel: SKLabelNode!
     
     var keepTimerOnTrack: Int = 1
     var trackRounds: Int = 1
@@ -145,10 +162,13 @@ class GameScene: SKScene {
     var playButton: MSButtonNode!
     var homeButton: MSButtonNode!
     var refreshButton: MSButtonNode!
+    let gameManager = UserState.sharedInstance
+    
+    var tutorialContinue1: Bool = true
+    var tutorialContinue2: Bool = true
+
     
     override func didMoveToView(view: SKView) {
-        
-        let gameManager = UserState.sharedInstance
         
         /* Setup your scene here */
         trainLight = childNodeWithName("trainLight") as! SKSpriteNode
@@ -187,6 +207,54 @@ class GameScene: SKScene {
         bonusSign3.alpha = 0
         bonusSign4.alpha = 0
 
+        touchHand1 = childNodeWithName("touchHand1") as! SKSpriteNode
+        touchHand2 = childNodeWithName("touchHand2") as! SKSpriteNode
+        touchHand3 = childNodeWithName("touchHand3") as! SKSpriteNode
+        touchHand4 = childNodeWithName("touchHand4") as! SKSpriteNode
+
+        touchHand1.hidden = true
+        touchHand2.hidden = true
+        touchHand3.hidden = true
+        touchHand4.hidden = true
+        
+        tapSign1 = childNodeWithName("tapSign1") as! SKLabelNode
+        tapSign2 = childNodeWithName("tapSign2") as! SKLabelNode
+        tapSign3 = childNodeWithName("tapSign3") as! SKLabelNode
+        tapSign4 = childNodeWithName("tapSign4") as! SKLabelNode
+
+        tapSign1.hidden = true
+        tapSign2.hidden = true
+        tapSign3.hidden = true
+        tapSign4.hidden = true
+
+        tutorialBox1 = childNodeWithName("tutorialBox1") as! SKSpriteNode
+        tutorialBox2 = childNodeWithName("tutorialBox2") as! SKSpriteNode
+        tutorialBox3 = childNodeWithName("tutorialBox3") as! SKSpriteNode
+
+        tutorialBox1.hidden = true
+        tutorialBox2.hidden = true
+        tutorialBox3.hidden = true
+        
+        tapToContinueLabel = childNodeWithName("tapToContinueLabel") as! SKLabelNode
+        tapToContinueArea = childNodeWithName("tapToContinueArea") as! MSButtonNode
+        congratsLabel = childNodeWithName("congratsLabel") as! SKLabelNode
+        tapToContinueLabel.hidden = true
+        tapToContinueArea.hidden = true
+        congratsLabel.alpha = 0
+        
+        tapToContinueArea.selectedHandler = {
+            state = .Playing
+            self.tutorialContinue1 = false
+            self.tutorialBox1.hidden = true
+            self.tutorialBox2.hidden = true
+            self.tutorialBox3.hidden = true
+            self.tapToContinueLabel.hidden = true
+            self.tapToContinueArea.hidden = true
+        }
+
+
+        
+        
         let resourcePath = NSBundle.mainBundle().pathForResource("HelpScene", ofType: "sks")
         helpSceneScreen = HelpScene(URL: NSURL (fileURLWithPath: resourcePath!))
         helpSceneScreen.zPosition = 100
@@ -212,7 +280,7 @@ class GameScene: SKScene {
         
         helpGameButton.selectedHandler = {
             
-            gameManager.lastScene = "gameScene"
+            self.gameManager.lastScene = "gameScene"
             state = .Paused
             
             self.helpSceneScreen.hidden = false
@@ -246,6 +314,7 @@ class GameScene: SKScene {
         
         pauseButton.selectedHandler = {
             state = .Paused
+            self.gameManager.pause = true
             self.homeButton.state = .Active
             self.playButton.state = .Active
             self.refreshButton.state = .Active
@@ -260,6 +329,7 @@ class GameScene: SKScene {
         refreshButton.state = .Hidden
         
         homeButton.selectedHandler = {
+            self.gameManager.pause = false
             /* Grab reference to our SpriteKit view */
             let skView = self.view as SKView!
             
@@ -274,12 +344,14 @@ class GameScene: SKScene {
         }
         
         playButton.selectedHandler = {
+            self.gameManager.pause = false
             state = .Playing
             self.pauseMenu.hidden = true
             
         }
         
         refreshButton.selectedHandler = {
+            self.gameManager.pause = false
             /* Grab reference to our SpriteKit view */
             let skView = self.view as SKView!
             
@@ -323,18 +395,36 @@ class GameScene: SKScene {
                 let nodeTouched = nodeAtPoint(point)
                 //print(nodeTouched)
                 
+//                if gameManager.tutorialOptional == false && trackRounds == 1 && tutorialContinue1 == true {
+//                    if nodeTouched.name == tapToContinueArea{
+//                        state = .Playing
+//                        tutorialContinue1 = false
+//                        tutorialBox1.hidden = true
+//                        tutorialBox2.hidden = true
+//                        tutorialBox3.hidden = true
+//                        tapToContinueLabel.hidden = true
+//                        tapToContinueArea.hidden = true
+//                    }
+//                }
                 
                 //Passenger 1 is touched
                 if Passenger1.awakeSign.hidden == false{
                     if nodeTouched.name == "touchArea1"{
                         if colorState == .Green{
                             score += scoreMultiplier * 2
-                            //print("Haha")
-                            //print(scoreMultiplier)
                             bonusFade(bonusSign1)
-
+                            if trackRounds == 1 && tutorialContinue2 == true && gameManager.tutorialOptional == false{
+                                touchHand1.hidden = true
+                                tapSign1.hidden = true
+                            }
                         }
-                        else {score += scoreMultiplier}
+                        else {
+                            score += scoreMultiplier
+                            if trackRounds == 1 && tutorialContinue2 == true && gameManager.tutorialOptional == false{
+                                touchHand1.hidden = true
+                                tapSign1.hidden = true
+                            }
+                        }
                         Passenger1.awaken()
                         
                     }
@@ -351,8 +441,18 @@ class GameScene: SKScene {
                         if colorState == .Green{
                             score += scoreMultiplier * 2
                             bonusFade(bonusSign2)
+                            if trackRounds == 1 && tutorialContinue2 == true && gameManager.tutorialOptional == false{
+                                touchHand2.hidden = true
+                                tapSign2.hidden = true
+                            }
                         }
-                        else{score += scoreMultiplier}
+                        else{
+                            score += scoreMultiplier
+                            if trackRounds == 1 && tutorialContinue2 == true && gameManager.tutorialOptional == false{
+                                touchHand2.hidden = true
+                                tapSign2.hidden = true
+                            }
+                        }
                         Passenger2.awaken()
                     }
                 }else if Passenger2.awakeSign.hidden == true{
@@ -367,8 +467,18 @@ class GameScene: SKScene {
                         if colorState == .Green{
                             score += scoreMultiplier * 2
                             bonusFade(bonusSign3)
+                            if trackRounds == 1 && tutorialContinue2 == true && gameManager.tutorialOptional == false{
+                                touchHand3.hidden = true
+                                tapSign3.hidden = true
+                            }
                         }
-                        else{score += scoreMultiplier}
+                        else{
+                            score += scoreMultiplier
+                            if trackRounds == 1 && tutorialContinue2 == true && gameManager.tutorialOptional == false{
+                                touchHand3.hidden = true
+                                tapSign3.hidden = true
+                            }
+                        }
                         Passenger3.awaken()
                     }
                 }else if Passenger3.awakeSign.hidden == true{
@@ -383,8 +493,18 @@ class GameScene: SKScene {
                         if colorState == .Green{
                             score += scoreMultiplier * 2
                             bonusFade(bonusSign4)
+                            if trackRounds == 1 && tutorialContinue2 == true && gameManager.tutorialOptional == false{
+                                touchHand4.hidden = true
+                                tapSign4.hidden = true
+                            }
                         }
-                        else{score += scoreMultiplier}
+                        else{
+                            score += scoreMultiplier
+                            if trackRounds == 1 && tutorialContinue2 == true && gameManager.tutorialOptional == false{
+                                touchHand4.hidden = true
+                                tapSign4.hidden = true
+                            }
+                        }
                         Passenger4.awaken()
                     }
                }
@@ -410,6 +530,7 @@ class GameScene: SKScene {
         /* Basically if it's game over or the start menu, then the timer countdown will not start to decrease*/
         if state != .Playing { return }
         
+        tutorialPart()
         
         if Double(trackRounds) % 4.0 == 0 && scoreAllow == true{
             scoreMultiplier += 1
@@ -453,6 +574,8 @@ class GameScene: SKScene {
                 spriteWakeUp = false
             }
             
+            tutorialPart2()
+            
             if trainLightSpace > 0{
                 if Double(trackRounds) % 4 == 0 && trainSpeedAllow == true && trainLightBarSpeed < 0.016{
                     trainLightBarSpeed += 0.002
@@ -468,7 +591,6 @@ class GameScene: SKScene {
             
             
             colorChange(light)
-            
             
             completeRound()
             
@@ -507,6 +629,8 @@ class GameScene: SKScene {
             
             
             //After the recolor sequence has run, the following statements will run as well
+            congratulations()
+
             timer = 1.0
             timerBar.hidden = false
             
@@ -533,6 +657,10 @@ class GameScene: SKScene {
             trainSpeedAllow = true
             trackRounds += 1
             
+            
+            gameManager.tutorialOptional = true
+            tutorialContinue2 = false
+
 
         }
     }
@@ -594,10 +722,60 @@ class GameScene: SKScene {
     
     }
     
+    func tutorialPart(){
+       //To show the wait light bar and train light bar instructions
+        if gameManager.tutorialOptional == false && trackRounds == 1 && tutorialContinue1 == true {
+        tutorialBox1.hidden = false
+        tutorialBox2.hidden = false
+        tutorialBox3.hidden = false
+        tapToContinueLabel.hidden = false
+        tapToContinueArea.hidden = false
+        state = .Paused
+            
+        }
+        
+        
+    }
+    
+    func tutorialPart2(){
+        //To show the user what to tap on
+        if gameManager.tutorialOptional == false && trackRounds == 1 && tutorialContinue2 == true {
+            //do if each awake symbols are not hidden, then the hand sign is not hidden
+            //[label].hidden = false (for the "tap" part)
+            
+            if Passenger1.awakeSign.hidden == false{
+                touchHand1.hidden = false
+                tapSign1.hidden = false
+            }
+            if Passenger2.awakeSign.hidden == false{
+                touchHand2.hidden = false
+                tapSign2.hidden = false
+            }
+            if Passenger3.awakeSign.hidden == false{
+                touchHand3.hidden = false
+                tapSign3.hidden = false
+            }
+            if Passenger4.awakeSign.hidden == false{
+                touchHand4.hidden = false
+                tapSign4.hidden = false
+            }
+        }
+        
+        
+        
+    }
+
+    func congratulations(){
+        if trackRounds == 1 && tutorialContinue2 == true && gameManager.tutorialOptional == false{
+        let fadeAction1 = SKAction.fadeAlphaTo(1, duration: 0.5)
+        let fadeAction2 = SKAction.fadeAlphaTo(0, duration: 0.5)
+        
+        let runFade = SKAction.sequence([fadeAction1, fadeAction2])
+        congratsLabel.runAction(runFade)
+        }
+    }
+
 }
-
-
-
 
 
 
