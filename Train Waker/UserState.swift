@@ -9,11 +9,6 @@
 import Foundation
 import SpriteKit
 
-/* Define properties to be stored in NSUserDefaults */
-//extension DefaultsKeys {
-//    static let highScore = DefaultsKey<Int>("highScore")
-//    static let characters = DefaultsKey<NSData>("characters")
-//}
 
 class UserState {
     

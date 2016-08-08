@@ -8,16 +8,23 @@
 
 
 /*
- -Tutorial 2 = Check out the commented lines, fill them in and get assets
-
+MAIN THINGS TO DO:
+ -Sprites, randomize, etc. 1. TODAY
+ -Sounds 2. TODAY
+ -Credit Scene
+ -High Score 3. TODAY
+ -Background Moving
+ -Get developer account 4. TODAY (!!)
+ 
+ 
 -Play around with speeds at rounds*
 -Bonus points*
+-Tutorial*
 -Instructions* - LATER add in screenshots 
 -Background Moving 3
 -Pause*
 -High Score
 -Make random texts appear for passengers and trick 'em (NOTE: Add it in earlier)*
--Make one seat on the other side
 -Get passenger sprites 1/ 4
 -Sounds 5
 -Vibration
@@ -122,6 +129,7 @@ class GameScene: SKScene {
     var tutorialBox1: SKSpriteNode!
     var tutorialBox2: SKSpriteNode!
     var tutorialBox3: SKSpriteNode!
+    var tutorialBox4: SKSpriteNode!
 
     var tapToContinueLabel: SKLabelNode!
     var tapToContinueArea: MSButtonNode!
@@ -230,18 +238,18 @@ class GameScene: SKScene {
         tutorialBox1 = childNodeWithName("tutorialBox1") as! SKSpriteNode
         tutorialBox2 = childNodeWithName("tutorialBox2") as! SKSpriteNode
         tutorialBox3 = childNodeWithName("tutorialBox3") as! SKSpriteNode
+        tutorialBox4 = childNodeWithName("tutorialBox4") as! SKSpriteNode
 
         tutorialBox1.hidden = true
         tutorialBox2.hidden = true
         tutorialBox3.hidden = true
+        tutorialBox4.hidden = true
         
         tapToContinueLabel = childNodeWithName("tapToContinueLabel") as! SKLabelNode
         tapToContinueArea = childNodeWithName("tapToContinueArea") as! MSButtonNode
-//        tapToContinueArea2 = childNodeWithName("tapToContinueArea2") as! MSButtonNode
         congratsLabel = childNodeWithName("congratsLabel") as! SKLabelNode
         tapToContinueLabel.hidden = true
         tapToContinueArea.hidden = true
-//        tapToContinueArea2.hidden = true
         congratsLabel.alpha = 0
         
         tapToContinueArea.selectedHandler = {
@@ -250,18 +258,11 @@ class GameScene: SKScene {
             self.tutorialBox1.hidden = true
             self.tutorialBox2.hidden = true
             self.tutorialBox3.hidden = true
+            self.tutorialBox4.hidden = true
             self.message.hidden = true
             self.tapToContinueLabel.hidden = true
             self.tapToContinueArea.hidden = true
         }
-        
-//        tapToContinueArea2.selectedHandler = {
-//            state = .Playing
-//            self.message.hidden = true
-//            self.tapToContinueLabel.hidden = true
-//            self.tapToContinueArea2.hidden = true
-//        }
-
 
         
         
@@ -402,18 +403,7 @@ class GameScene: SKScene {
                 
                 let nodeTouched = nodeAtPoint(point)
                 //print(nodeTouched)
-                
-//                if gameManager.tutorialOptional == false && trackRounds == 1 && tutorialContinue1 == true {
-//                    if nodeTouched.name == tapToContinueArea{
-//                        state = .Playing
-//                        tutorialContinue1 = false
-//                        tutorialBox1.hidden = true
-//                        tutorialBox2.hidden = true
-//                        tutorialBox3.hidden = true
-//                        tapToContinueLabel.hidden = true
-//                        tapToContinueArea.hidden = true
-//                    }
-//                }
+
                 
                 //Passenger 1 is touched
                 if Passenger1.awakeSign.hidden == false{
@@ -735,6 +725,7 @@ class GameScene: SKScene {
         tutorialBox1.hidden = false
         tutorialBox2.hidden = false
         tutorialBox3.hidden = false
+        tutorialBox4.hidden = false
         tapToContinueLabel.hidden = false
         tapToContinueArea.hidden = false
         state = .Paused
