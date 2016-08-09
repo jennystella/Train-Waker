@@ -13,8 +13,7 @@ MAIN THINGS TO DO:
  -Sounds 2. TODAY
  -Credit Scene
  -High Score 3. TODAY
- -Background Moving
- -Get developer account 4. TODAY (!!)
+ -Get developer account*
  
  
 -Play around with speeds at rounds*
@@ -133,7 +132,6 @@ class GameScene: SKScene {
 
     var tapToContinueLabel: SKLabelNode!
     var tapToContinueArea: MSButtonNode!
-//    var tapToContinueArea2: MSButtonNode!
     var congratsLabel: SKLabelNode!
     
     var keepTimerOnTrack: Int = 1
@@ -192,6 +190,8 @@ class GameScene: SKScene {
         waitLight2.hidden = true
         waitLight3.hidden = true
         waitLight4.hidden = true
+        print(gameManager.tutorialOptional2)
+
         
 //        let highScore = gameManager.highScore
 
@@ -602,7 +602,7 @@ class GameScene: SKScene {
     func gameOver(){
         state = .GameOver
         
-        let moveDown = SKAction.moveByX(0, y:-320, duration:0.5)
+        let moveDown = SKAction.moveByX(0, y:-300, duration:0.5)
         let downSequence = SKAction.sequence([moveDown])
         
         self.endGameBackground.runAction(downSequence)
@@ -713,10 +713,9 @@ class GameScene: SKScene {
         message.hidden = false
         tapToContinueLabel.hidden = false
         tapToContinueArea.hidden = false
-        state = .Paused
-        gameManager.tutorialOptional = true
+        gameManager.tutorialOptional2 = true
 
-    
+        state = .Paused
     }
     
     func tutorialPart(){
