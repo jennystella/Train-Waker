@@ -137,6 +137,7 @@ class GameScene: SKScene {
     var keepTimerOnTrack: Int = 1
     var trackRounds: Int = 1
     var spriteWakeUp: Bool = true
+    var spriteChange: Bool = true
     var timerBarSpeed: Double = 0.007
     var trainLightBarSpeed: Double = 0.008
     
@@ -530,6 +531,22 @@ class GameScene: SKScene {
         
         tutorialPart()
         
+        if trackRounds > 1 && spriteChange == true{
+            if Passenger1.sprite.hidden == true{
+                Passenger1.randomsprite()
+            }
+            if Passenger2.sprite.hidden == true{
+                Passenger2.randomsprite()
+            }
+            if Passenger3.sprite.hidden == true{
+                Passenger3.randomsprite()
+            }
+            if Passenger4.sprite.hidden == true{
+                Passenger4.randomsprite()
+            }
+            spriteChange = false
+        }
+        
         if Double(trackRounds) % 4.0 == 0 && scoreAllow == true{
             scoreMultiplier += 1
             scoreAllow = false
@@ -650,6 +667,7 @@ class GameScene: SKScene {
             Passenger4.sleeping()
             check()
             spriteWakeUp = true
+            spriteChange = true
             
             scoreAllow = true
             timeAllow = true

@@ -47,6 +47,7 @@ class Passenger {
         awakeSign.hidden = true
         questionSign.hidden = true
         thoughtCloud.hidden = true
+        sprite.hidden = true
         
     }
     
@@ -56,6 +57,27 @@ class Passenger {
         questionSign.hidden = false
         thoughtCloud.hidden = false
     }
+    
+    func randomsprite(){
+        let choice = Int(arc4random_uniform(4))
+        switch choice{
+        case 0:
+            sprite.texture = SKTexture(imageNamed: "samplePass")
+            sprite.hidden = false
+        case 1:
+            sprite.texture = SKTexture(imageNamed: "passenger2")
+            sprite.hidden = false
+        case 2:
+            sprite.texture = SKTexture(imageNamed: "passenger3")
+            sprite.hidden = false
+        case 3:
+            sprite.texture = SKTexture(imageNamed: "passenger4")
+            sprite.hidden = false
+        default:
+            break
+        }
+    }
+    
     
     func randomawake(round: Int){
     
