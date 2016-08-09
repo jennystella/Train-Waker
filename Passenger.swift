@@ -59,7 +59,7 @@ class Passenger {
     }
     
     func randomsprite(){
-        let choice = Int(arc4random_uniform(4))
+        let choice = Int(arc4random_uniform(5))
         switch choice{
         case 0:
             sprite.texture = SKTexture(imageNamed: "samplePass")
@@ -72,6 +72,9 @@ class Passenger {
             sprite.hidden = false
         case 3:
             sprite.texture = SKTexture(imageNamed: "passenger4")
+            sprite.hidden = false
+        case 4:
+            sprite.texture = SKTexture(imageNamed: "passenger5")
             sprite.hidden = false
         default:
             break
