@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Mixpanel
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,10 +19,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-//         Initialize singleton, load data 
+        Mixpanel.sharedInstanceWithToken("7c2c8532e4f131db6133465e2d0cff0c")
+        let mixpanel: Mixpanel = Mixpanel.sharedInstance()
+        mixpanel.track("App launched")
+        
+        //Initialize singleton, load data
         UserState.sharedInstance
         
         return true
+        
+
     }
 
     func applicationWillResignActive(application: UIApplication) {
