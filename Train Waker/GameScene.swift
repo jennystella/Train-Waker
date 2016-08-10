@@ -73,6 +73,7 @@ class GameScene: SKScene {
     }
     
     var scoreLabel: SKLabelNode!
+    var highScoreNumberLabel: SKLabelNode!
     var scoreMultiplier: Int = 1
     var scoreAllow: Bool = true
     var score: Int = 0 {
@@ -81,6 +82,8 @@ class GameScene: SKScene {
             endScoreLabel.text = String(score)
         }
     }
+
+    
 
     //Objects Passenger
     //This calls the passenger class and assigns a passgener object
@@ -191,11 +194,6 @@ class GameScene: SKScene {
         waitLight2.hidden = true
         waitLight3.hidden = true
         waitLight4.hidden = true
-        print(gameManager.tutorialOptional2)
-
-        
-//        let highScore = gameManager.highScore
-
 
         timerBar = childNodeWithName("timerBar") as! SKSpriteNode
         scoreLabel = childNodeWithName("scoreLabel") as! SKLabelNode
@@ -275,6 +273,7 @@ class GameScene: SKScene {
 
         endGameBackground = childNodeWithName("endGameBackground") as! SKSpriteNode
         endScoreLabel = childNodeWithName("//endScoreLabel") as! SKLabelNode
+        highScoreNumberLabel = childNodeWithName("//highScoreNumberLabel") as! SKLabelNode
         restartButton = childNodeWithName("//restartButton") as! MSButtonNode
         helpGameButton = childNodeWithName("helpGameButton") as! MSButtonNode
         pauseButton = childNodeWithName("pauseButton") as! MSButtonNode
@@ -387,6 +386,7 @@ class GameScene: SKScene {
 
         
     }
+    
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         /* Called when a touch begins */
@@ -618,6 +618,14 @@ class GameScene: SKScene {
     
     func gameOver(){
         state = .GameOver
+        
+        if score > gameManager.highScore{
+            gameManager.highScore = score
+        }
+        highScoreNumberLabel.text = String(gameManager.highScore)
+
+        pauseButton.hidden = true
+        helpGameButton.hidden = true
         
         let moveDown = SKAction.moveByX(0, y:-300, duration:0.5)
         let downSequence = SKAction.sequence([moveDown])

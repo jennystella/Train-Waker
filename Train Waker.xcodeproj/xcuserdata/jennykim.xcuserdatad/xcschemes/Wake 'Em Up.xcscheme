@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CCEF56E61D343E6A00EBD2CD"
-               BuildableName = "Train Waker.app"
+               BuildableName = "Wake &apos;Em Up.app"
                BlueprintName = "Train Waker"
                ReferencedContainer = "container:Train Waker.xcodeproj">
             </BuildableReference>
@@ -28,12 +28,32 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CCEF56FE1D343E6A00EBD2CD"
+               BuildableName = "Train Waker.xctest"
+               BlueprintName = "Train WakerTests"
+               ReferencedContainer = "container:Train Waker.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CCEF57091D343E6A00EBD2CD"
+               BuildableName = "Train Waker.xctest"
+               BlueprintName = "Train WakerUITests"
+               ReferencedContainer = "container:Train Waker.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CCEF56E61D343E6A00EBD2CD"
-            BuildableName = "Train Waker.app"
+            BuildableName = "Wake &apos;Em Up.app"
             BlueprintName = "Train Waker"
             ReferencedContainer = "container:Train Waker.xcodeproj">
          </BuildableReference>
@@ -56,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CCEF56E61D343E6A00EBD2CD"
-            BuildableName = "Train Waker.app"
+            BuildableName = "Wake &apos;Em Up.app"
             BlueprintName = "Train Waker"
             ReferencedContainer = "container:Train Waker.xcodeproj">
          </BuildableReference>
@@ -75,7 +95,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CCEF56E61D343E6A00EBD2CD"
-            BuildableName = "Train Waker.app"
+            BuildableName = "Wake &apos;Em Up.app"
             BlueprintName = "Train Waker"
             ReferencedContainer = "container:Train Waker.xcodeproj">
          </BuildableReference>

@@ -16,6 +16,8 @@ class StartMenu: SKScene {
     var startMenuTitle: SKLabelNode!
     var helpButton: MSButtonNode!
     var helpSceneScreen: HelpScene!
+    var creditButton: MSButtonNode!
+    var creditSceneScreen: CreditScene!
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -23,12 +25,18 @@ class StartMenu: SKScene {
         /* Set UI connections */
         startButton = self.childNodeWithName("startButton") as! MSButtonNode
         helpButton = self.childNodeWithName("helpButton") as! MSButtonNode
+        creditButton = self.childNodeWithName("creditButton") as! MSButtonNode
         startMenuTitle = self.childNodeWithName("startMenuTitle") as! SKLabelNode
         
         let resourcePath = NSBundle.mainBundle().pathForResource("HelpScene", ofType: "sks")
         helpSceneScreen = HelpScene(URL: NSURL (fileURLWithPath: resourcePath!))
         helpSceneScreen.zPosition = 100
         addChild(helpSceneScreen)
+        
+        let resourcePath1 = NSBundle.mainBundle().pathForResource("CreditScene", ofType: "sks")
+        creditSceneScreen = CreditScene(URL: NSURL (fileURLWithPath: resourcePath1!))
+        creditSceneScreen.zPosition = 100
+        addChild(creditSceneScreen)
        
         let gameManager = UserState.sharedInstance
         gameManager.lastScene = "startMenu"
@@ -57,6 +65,11 @@ class StartMenu: SKScene {
             
         }
         self.helpSceneScreen.hidden = true
+    
+        creditButton.selectedHandler = {
+            self.creditSceneScreen.hidden = false
+        }
+        self.creditSceneScreen.hidden = true
     }
     
 }

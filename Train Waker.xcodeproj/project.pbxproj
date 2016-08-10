@@ -16,6 +16,8 @@
 		CCDB0D431D3D49C900BA7F6F /* Passenger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB0D421D3D49C900BA7F6F /* Passenger.swift */; };
 		CCE260941D370BE8004DE1B7 /* WaitLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE260931D370BE8004DE1B7 /* WaitLight.swift */; };
 		CCE6B4601D42BC9F003C06D1 /* MSButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE6B45F1D42BC9F003C06D1 /* MSButtonNode.swift */; };
+		CCE9165E1D5A78FE00377CD5 /* CreditScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CCE9165D1D5A78FE00377CD5 /* CreditScene.sks */; };
+		CCE916601D5A7FE500377CD5 /* CreditScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE9165F1D5A7FE500377CD5 /* CreditScene.swift */; };
 		CCEF56EB1D343E6A00EBD2CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEF56EA1D343E6A00EBD2CD /* AppDelegate.swift */; };
 		CCEF56ED1D343E6A00EBD2CD /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CCEF56EC1D343E6A00EBD2CD /* GameScene.sks */; };
 		CCEF56EF1D343E6A00EBD2CD /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEF56EE1D343E6A00EBD2CD /* GameScene.swift */; };
@@ -54,6 +56,8 @@
 		CCDB0D421D3D49C900BA7F6F /* Passenger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Passenger.swift; path = ../Passenger.swift; sourceTree = "<group>"; };
 		CCE260931D370BE8004DE1B7 /* WaitLight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WaitLight.swift; path = ../WaitLight.swift; sourceTree = "<group>"; };
 		CCE6B45F1D42BC9F003C06D1 /* MSButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MSButtonNode.swift; sourceTree = "<group>"; };
+		CCE9165D1D5A78FE00377CD5 /* CreditScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CreditScene.sks; sourceTree = "<group>"; };
+		CCE9165F1D5A7FE500377CD5 /* CreditScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditScene.swift; sourceTree = "<group>"; };
 		CCEF56E71D343E6A00EBD2CD /* Train Waker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Train Waker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCEF56EA1D343E6A00EBD2CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCEF56EC1D343E6A00EBD2CD /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -63,10 +67,10 @@
 		CCEF56F51D343E6A00EBD2CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CCEF56F81D343E6A00EBD2CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CCEF56FA1D343E6A00EBD2CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CCEF56FF1D343E6A00EBD2CD /* Train WakerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Train WakerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCEF56FF1D343E6A00EBD2CD /* Train Waker.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Train Waker.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCEF57031D343E6A00EBD2CD /* Train_WakerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Train_WakerTests.swift; sourceTree = "<group>"; };
 		CCEF57051D343E6A00EBD2CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CCEF570A1D343E6A00EBD2CD /* Train WakerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Train WakerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCEF570A1D343E6A00EBD2CD /* Train Waker.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Train Waker.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCEF570E1D343E6A00EBD2CD /* Train_WakerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Train_WakerUITests.swift; sourceTree = "<group>"; };
 		CCEF57101D343E6A00EBD2CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -110,8 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				CCEF56E71D343E6A00EBD2CD /* Train Waker.app */,
-				CCEF56FF1D343E6A00EBD2CD /* Train WakerTests.xctest */,
-				CCEF570A1D343E6A00EBD2CD /* Train WakerUITests.xctest */,
+				CCEF56FF1D343E6A00EBD2CD /* Train Waker.xctest */,
+				CCEF570A1D343E6A00EBD2CD /* Train Waker.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -123,6 +127,8 @@
 				CCEF56EC1D343E6A00EBD2CD /* GameScene.sks */,
 				CC98A6161D46C6BA00A8BA6C /* StartMenu.sks */,
 				CC8339B71D4FC28900BD38BE /* HelpScene.sks */,
+				CCE9165D1D5A78FE00377CD5 /* CreditScene.sks */,
+				CCE9165F1D5A7FE500377CD5 /* CreditScene.swift */,
 				CC8339B91D4FD81A00BD38BE /* UserState.swift */,
 				CCEF56EE1D343E6A00EBD2CD /* GameScene.swift */,
 				CC01F1471D47D6E6000ECA14 /* StartMenu.swift */,
@@ -193,7 +199,7 @@
 			);
 			name = "Train WakerTests";
 			productName = "Train WakerTests";
-			productReference = CCEF56FF1D343E6A00EBD2CD /* Train WakerTests.xctest */;
+			productReference = CCEF56FF1D343E6A00EBD2CD /* Train Waker.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		CCEF57091D343E6A00EBD2CD /* Train WakerUITests */ = {
@@ -211,7 +217,7 @@
 			);
 			name = "Train WakerUITests";
 			productName = "Train WakerUITests";
-			productReference = CCEF570A1D343E6A00EBD2CD /* Train WakerUITests.xctest */;
+			productReference = CCEF570A1D343E6A00EBD2CD /* Train Waker.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -267,6 +273,7 @@
 				CC98A6171D46C6BB00A8BA6C /* StartMenu.sks in Resources */,
 				CCEF56F91D343E6A00EBD2CD /* LaunchScreen.storyboard in Resources */,
 				CCEF56F61D343E6A00EBD2CD /* Assets.xcassets in Resources */,
+				CCE9165E1D5A78FE00377CD5 /* CreditScene.sks in Resources */,
 				CCEF56F41D343E6A00EBD2CD /* Main.storyboard in Resources */,
 				CC8339B81D4FC28900BD38BE /* HelpScene.sks in Resources */,
 			);
@@ -303,6 +310,7 @@
 				CCEF56EB1D343E6A00EBD2CD /* AppDelegate.swift in Sources */,
 				CCE260941D370BE8004DE1B7 /* WaitLight.swift in Sources */,
 				CC8339BC1D4FFC8E00BD38BE /* HelpScene.swift in Sources */,
+				CCE916601D5A7FE500377CD5 /* CreditScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,7 +460,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.makeschool.Train-Waker";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Train Waker";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -467,7 +475,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.makeschool.Train-Waker";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Train Waker";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -480,7 +488,7 @@
 				INFOPLIST_FILE = "Train WakerTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.makeschool.Train-WakerTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Train Waker";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Train Waker.app/Train Waker";
 			};
 			name = Debug;
@@ -492,7 +500,7 @@
 				INFOPLIST_FILE = "Train WakerTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.makeschool.Train-WakerTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Train Waker";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Train Waker.app/Train Waker";
 			};
 			name = Release;
@@ -504,7 +512,7 @@
 				INFOPLIST_FILE = "Train WakerUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.makeschool.Train-WakerUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Train Waker";
 				TEST_TARGET_NAME = "Train Waker";
 			};
 			name = Debug;
@@ -515,7 +523,7 @@
 				INFOPLIST_FILE = "Train WakerUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.makeschool.Train-WakerUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Train Waker";
 				TEST_TARGET_NAME = "Train Waker";
 			};
 			name = Release;
