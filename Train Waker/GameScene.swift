@@ -599,7 +599,7 @@ class GameScene: SKScene {
                 }
                 
                 trainLightSpace -= CGFloat(trainLightBarSpeed)
-                print(trainLightBarSpeed)
+//                print(trainLightBarSpeed)
             }
             
             //This will assign light to the class of TrainLight and then the program will call the function colorChange witht he properties of light. This way, the properties of TrainLight are not called over and over again, like how it would have done if we did "TrainLight(scene1: scene as! GameScene).colorChange

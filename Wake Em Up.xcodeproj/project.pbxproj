@@ -280,7 +280,7 @@
 				TargetAttributes = {
 					CCEF56E61D343E6A00EBD2CD = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 6EV3UD9SXH;
+						DevelopmentTeam = Q29RTL699F;
 					};
 					CCEF56FE1D343E6A00EBD2CD = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -631,9 +631,10 @@
 				INFOPLIST_FILE = "Train Waker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.makeschool.WakeEmUp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.makeschool.WakeEmUp1;
 				PRODUCT_NAME = "Train Waker";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -647,9 +648,10 @@
 				INFOPLIST_FILE = "Train Waker/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.makeschool.WakeEmUp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.makeschool.WakeEmUp1;
 				PRODUCT_NAME = "Train Waker";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
