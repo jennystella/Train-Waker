@@ -83,7 +83,6 @@ class GameScene: SKScene {
         }
     }
 
-    
 
     //Objects Passenger
     //This calls the passenger class and assigns a passgener object
@@ -310,7 +309,7 @@ class GameScene: SKScene {
             self.score = 0
             
             /* Ensure correct aspect mode */
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .AspectFit
             
             /* Restart game scene */
             skView.presentScene(scene)
@@ -346,7 +345,7 @@ class GameScene: SKScene {
             let scene = StartMenu(fileNamed:"StartMenu") as StartMenu!
             
             /* Ensure correct aspect mode */
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .AspectFit
             
             /* Restart game scene */
             skView.presentScene(scene)
@@ -371,7 +370,7 @@ class GameScene: SKScene {
             self.score = 0
             
             /* Ensure correct aspect mode */
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .AspectFit
             
             /* Restart game scene */
             skView.presentScene(scene)
@@ -531,6 +530,8 @@ class GameScene: SKScene {
         
         tutorialPart()
         
+
+        
         if trackRounds > 1 && spriteChange == true{
             if Passenger1.sprite.hidden == true{
                 Passenger1.randomsprite()
@@ -681,6 +682,7 @@ class GameScene: SKScene {
             timeAllow = true
             trainSpeedAllow = true
             trackRounds += 1
+            
             
             
             gameManager.tutorialOptional = true

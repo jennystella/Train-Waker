@@ -44,6 +44,7 @@ class StartMenu: SKScene {
         /* Setup restart button selection handler */
         startButton.selectedHandler = {
             
+            
             /* Grab reference to our SpriteKit view */
             let skView = self.view as SKView!
             
@@ -51,7 +52,7 @@ class StartMenu: SKScene {
             let scene = GameScene(fileNamed:"GameScene") as GameScene!
             
             /* Ensure correct aspect mode */
-            scene.scaleMode = .AspectFill
+            scene.scaleMode = .AspectFit
 
             /* Start game scene */
             skView.presentScene(scene)
