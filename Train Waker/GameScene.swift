@@ -9,6 +9,18 @@
 
 /*
 MAIN THINGS TO DO:
+ -Sounds 
+ -Window/Background Moving
+ -Dog Sprites haha
+ -Vibration
+ -Ads
+ -Add in more sprites 
+ -Settings
+ -Waking up halfway
+ -Mixpanel? maybe...
+ 
+ 
+ 
  -Sprites, randomize, etc. 1. TODAY
  -Sounds 2. TODAY
  -Credit Scene
